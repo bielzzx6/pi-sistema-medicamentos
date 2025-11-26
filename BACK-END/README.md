@@ -20,3 +20,5 @@ Basta executar o sistema usando o comando a seguir no Terminal:
 ```bash
 node app.js
 ```
+
+# Baixando dependências
