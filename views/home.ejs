@@ -1,0 +1,21 @@
+<!-- // ---------- views/home.ejs ---------- -->
+<%- include('header', { title: 'Página Inicial' }) %>
+
+
+<main class="container">
+<section class="card">
+<h2>Bem-vindo(a), <%= user.nome %>!</h2>
+<p>Você está logado com o email: <strong><%= user?.email %></strong></p>
+
+
+<p>Aqui você pode implementar a dashboard do sistema de medicamentos para idosos: lista de medicamentos, horários, lembretes e histórico.</p>
+
+
+<form action="/logout" method="post">
+<button type="submit" class="btn btn-ghost">Sair</button>
+</form>
+</section>
+</main>
+
+</body>
+</html>
