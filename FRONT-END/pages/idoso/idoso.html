@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perfil do Paciente</title>
 
-    <!-- Importação do GLOBAL -->
-    <link rel="stylesheet" href="../../public/css/global.css" />
-
-    <!-- CSS específico -->
-    <link rel="stylesheet" href="../../public/css/idoso.css" />
+    <!-- GLOBAL CSS -->
+    <link rel="stylesheet" href="../../css/global.css" />
+    <link rel="stylesheet" href="../../css/idoso.css" />
   </head>
 
   <body>
-    <!-- SIDEBAR GLOBAL -->
+    <script src="../../public/js/api.js"></script>
+    <script src="../../public/js/auth.js"></script>
+    <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="user-box">
         <img src="https://i.pravatar.cc/80?img=45" class="user-img" />
@@ -24,18 +24,17 @@
       </div>
 
       <ul class="menu">
-        <li class="active"><a href="../painel/painel.html">Painel</a></li>
+        <li><a href="../painel/painel.html">Painel</a></li>
       </ul>
 
       <div class="config-box">⚙️ Configurações</div>
     </aside>
 
-    <!-- CONTEÚDO PRINCIPAL -->
+    <!-- CONTEÚDO -->
     <main class="main">
-      <!-- TOPBAR GLOBAL -->
+      <!-- TOPBAR -->
       <div class="topbar">
         <input type="text" class="search" placeholder="Pesquisar paciente..." />
-
         <div class="icons">
           🔔
           <img src="https://i.pravatar.cc/40" class="profile-img" />
@@ -43,106 +42,28 @@
       </div>
 
       <!-- TÍTULO -->
-      <div
-        style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 20px;
-        "
-      >
-        <h1 class="page-title">Perfil de Maria da Silva</h1>
-        <button class="btn-outline">Editar Perfil</button>
-      </div>
+      <h1 class="page-title">Perfil de Maria da Silva</h1>
 
       <!-- CARD PRINCIPAL -->
       <div class="card patient-card">
-        <img src="https://i.pravatar.cc/120?img=55" class="patient-photo" />
-
+        <img src="https://i.pravatar.cc/130?img=55" class="patient-photo" />
         <div>
-          <h2 style="margin-bottom: 5px">Maria da Silva</h2>
+          <h2>Maria da Silva</h2>
           <p>82 anos</p>
-
-          <span class="badge badge-success" style="margin-top: 10px"
-            >Cuidados Ativos</span
-          >
+          <span class="badge badge-success">Cuidados Ativos</span>
         </div>
       </div>
 
       <!-- ABAS -->
       <div class="tabs">
-        <button class="tab active">Medicamentos</button>
-        <button class="tab">Sinais Vitais</button>
-        <button class="tab">Eventos Adversos</button>
-        <button class="tab">Agenda</button>
-        <button class="tab">Relatórios</button>
+        <button class="tab active" data-tab="medicamentos">Medicamentos</button>
+        <button class="tab" data-tab="sinaisvitais">Sinais Vitais</button>
       </div>
 
-      <!-- GRID -->
-      <div class="grid">
-        <!-- CARD ESQUERDO -->
-        <div class="card left-card">
-          <h3>Dados Gerais</h3>
-
-          <p>
-            <strong>Nome Completo:</strong><br />
-            Maria da Silva Pereira
-          </p>
-
-          <p>
-            <strong>Data de Nascimento:</strong><br />
-            05 Abril 1942 (82 anos)
-          </p>
-
-          <p>
-            <strong>Informações Médicas:</strong><br />
-            Alergia: Amoxicilina<br />
-            Plano: Unimed
-          </p>
-
-          <h4>Contatos de Emergência</h4>
-
-          <p>
-            <strong>João da Silva</strong> (Filho)<br />
-            📞 (11) 98765-4321
-            <span class="badge badge-warning">Principal</span>
-          </p>
-
-          <p>
-            <strong>Ana Costa</strong> (Cuidadora)<br />
-            📞 (21) 91236-1578
-          </p>
-        </div>
-
-        <!-- CARD DIREITO -->
-        <div class="card right-card">
-          <div class="header-card">
-            <h3>Doenças e Condições Clínicas</h3>
-            <button class="btn-outline">Adicionar</button>
-          </div>
-
-          <details class="accordion">
-            <summary>
-              Hipertensão Arterial
-              <small class="doctor">Dr. Carlos – Cardiologista</small>
-            </summary>
-          </details>
-
-          <details class="accordion">
-            <summary>
-              Diabetes Tipo 2
-              <small class="doctor">Dra. Lucas – Endocrinologista</small>
-            </summary>
-          </details>
-
-          <details class="accordion">
-            <summary>
-              Osteoartrite
-              <small class="doctor">Dr. Roberto – Reumatologista</small>
-            </summary>
-          </details>
-        </div>
-      </div>
+      <!-- CONTEÚDO DINÂMICO -->
+      <div id="tab-content"></div>
     </main>
+
+    <script src="../../js/idoso.js"></script>
   </body>
 </html>

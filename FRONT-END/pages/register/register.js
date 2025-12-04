@@ -1,19 +1,21 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("formRegister");
+// Aguarda o DOM carregar
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.querySelector(".form");
 
-  form.addEventListener("submit", async (e) => {
+  form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const nome = document.getElementById("nome").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const cpf = document.getElementById("cpf").value.trim();
-    const telefone = document.getElementById("telefone").value.trim();
-    const senha = document.getElementById("senha").value;
-    const confirmarSenha = document.getElementById("confirmarSenha").value;
+    // Pegando os inputs (na ordem em que aparecem no HTML)
+    const nome = form[0].value.trim();
+    const email = form[1].value.trim();
+    const cpf = form[2].value.trim();
+    const telefone = form[3].value.trim();
+    const senha = form[4].value.trim();
+    const confirmarSenha = form[5].value.trim();
 
-    // Validação simples
+    // Validação básica
     if (!nome || !email || !cpf || !telefone || !senha || !confirmarSenha) {
-      alert("Preencha todos os campos.");
+      alert("Por favor, preencha todos os campos.");
       return;
     }
 
@@ -22,26 +24,43 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // Criando o objeto a ser enviado para o backend
+    const data = {
+      nome,
+      email,
+      cpf,
+      telefone,
+      senha,
+    };
+
     try {
-      const response = await axios.post("http://localhost:3000/auth/register", {
-        nome,
-        email,
-        cpf,
-        telefone,
-        senha
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/admin/register",
+        data
+      );
 
       alert("Conta criada com sucesso!");
-      window.location.href = "../login/login.html";
 
-    } catch (err) {
-      console.error(err);
+      // Redireciona para login
+      window.location.href = "/pages/login/login.html";
 
-      if (err.response?.data?.message) {
-        alert(err.response.data.message);
+    } catch (error) {
+      if (error.response) {
+        alert(error.response.data.error);
       } else {
-        alert("Erro ao registrar. Tente novamente.");
+        alert("Erro ao conectar com o servidor.");
       }
     }
   });
+
+  // Mostrar / ocultar senha
+  const toggle = document.querySelector(".password-field .toggle");
+  const inputSenha = document.querySelector(".password-field input");
+
+  if (toggle) {
+    toggle.addEventListener("click", () => {
+      const type = inputSenha.type === "password" ? "text" : "password";
+      inputSenha.type = type;
+    });
+  }
 });

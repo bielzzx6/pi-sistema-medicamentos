@@ -6,13 +6,17 @@
     <title>Relatórios e Históricos</title>
 
     <!-- GLOBAL CSS -->
-    <link rel="stylesheet" href="../../public/css/global.css" />
+    <link rel="stylesheet" href="../../public/css/global.css">
 
     <!-- CSS ESPECÍFICO -->
     <link rel="stylesheet" href="../../public/css/relatorio.css" />
   </head>
 
   <body>
+    <!-- Proteção de rota -->
+    <script src="../../public/js/api.js"></script>
+    <script src="../../public/js/auth.js"></script>
+
     <!-- SIDEBAR GLOBAL -->
     <aside class="sidebar">
       <div class="user-box">
@@ -30,7 +34,11 @@
       <ul class="menu">
         <li><a href="../painel/painel.html">Painel</a></li>
         <li><a href="../pacientes/pacientes.html">Pacientes</a></li>
-        <li><a href="../medicamentos/medicamento.html">Medicamentos</a></li>
+        <li>
+          <a href="../cadastrarMedicamento/cadastrarMedicamento.html"
+            >Medicamentos</a
+          >
+        </li>
         <li><a href="../cuidadores/cuidadores.html">Cuidadores</a></li>
         <li class="active">Relatórios</li>
       </ul>

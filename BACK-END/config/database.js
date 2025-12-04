@@ -1,11 +1,14 @@
-//Configurar conexão com o banco de dados
-const mysql = require("mysql2");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME
-});
+async function connectDB() {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("🔥 MongoDB conectado com sucesso!");
+  } catch (error) {
+    console.error("❌ Erro na conexão com o MongoDB:", error);
+    process.exit(1);
+  }
+}
 
-module.exports = pool.promise();
+module.exports = connectDB;

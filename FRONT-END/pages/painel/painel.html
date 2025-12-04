@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="../../public/css/painel.css" />
   </head>
   <body>
+    <script src="../../public/js/api.js"></script>
+    <script src="../../public/js/auth.js"></script>
+    <script src="painel.js"></script>
+    
     <div class="sidebar">
       <div class="user-box">
         <img
@@ -26,10 +30,17 @@
         <li class="active">Painel</li>
         <li><a href="../pacientes/pacientes.html">Pacientes</a></li>
         <li>
-          <a href="../medicamentos/medicamento.html">Medicamentos</a>
+          <a href="../cadastrarMedicamento/cadastrarMedicamento.html"
+            >Medicamentos</a
+          >
         </li>
         <li><a href="../cuidadores/cuidadores.html">Cuidadores</a></li>
         <li><a href="../relatorio/relatorio.html">Relatórios</a></li>
+        <li>
+          <a href="../cadastrarSinal/cadastrarSinal.html"
+            >Cadastrar Sinal Vital</a
+          >
+        </li>
       </ul>
 
       <div class="config-box">⚙️ Configurações</div>
@@ -39,6 +50,11 @@
       <header class="topbar">
         <h2>Painel de Controle</h2>
         <input type="text" placeholder="Encontrar paciente..." class="search" />
+        <a
+          class="botao-cadastar-idoso"
+          href="../cadastroIdoso/cadastroIdoso.html"
+          >Cadastrar Idoso</a
+        >
         <div class="icons">🔔 👤</div>
       </header>
 
@@ -132,7 +148,6 @@
 
           <button class="btn">Ver Detalhes</button>
         </div>
-        <a href="../cadastroIdoso/cadastroIdoso.html">Cadastrar Idoso</a>
       </div>
     </div>
   </body>

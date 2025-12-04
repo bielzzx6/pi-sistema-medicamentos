@@ -144,3 +144,12 @@ body {
   cursor: pointer;
   width: 100%;
 }
+
+.botao-cadastar-idoso {
+  background: #0ea5e9;
+  padding: 10px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

@@ -1,65 +1,33 @@
-// ================================
-// CONFIGURAÇÃO GLOBAL DO AXIOS
-// ================================
+// Configuração global do Axios para incluir o token em todas as requisições
+axios.interceptors.request.use(
+  async function (config) {
+    try {
+      const token = localStorage.getItem("token");
 
-// URL base do seu backend
-axios.defaults.baseURL = "http://localhost:3000";
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
 
-// Permitir envio de cookies/JWT caso utilize no futuro
-axios.defaults.withCredentials = false;
-
-// Cabeçalhos padrão
-axios.defaults.headers.common["Content-Type"] = "application/json";
-
-// Função auxiliar para tratar erros facilmente
-function handleApiError(error) {
-    if (error.response) {
-        console.error("Erro da API:", error.response.data);
-        return error.response.data;
-    } else if (error.request) {
-        console.error("Nenhuma resposta do servidor.");
-        return { status: "erro", message: "Servidor não respondeu." };
-    } else {
-        console.error("Erro inesperado:", error.message);
-        return { status: "erro", message: "Erro inesperado." };
+      return config;
+    } catch (error) {
+      return Promise.reject(error);
     }
-}
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
 
-// Exporta para ser usado em outros scripts
-window.api = {
-    async post(url, data) {
-        try {
-            const res = await axios.post(url, data);
-            return res.data;
-        } catch (err) {
-            return handleApiError(err);
-        }
-    },
-
-    async get(url) {
-        try {
-            const res = await axios.get(url);
-            return res.data;
-        } catch (err) {
-            return handleApiError(err);
-        }
-    },
-
-    async put(url, data) {
-        try {
-            const res = await axios.put(url, data);
-            return res.data;
-        } catch (err) {
-            return handleApiError(err);
-        }
-    },
-
-    async delete(url) {
-        try {
-            const res = await axios.delete(url);
-            return res.data;
-        } catch (err) {
-            return handleApiError(err);
-        }
+// Se o token expirou
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("admin");
+      window.location.href = "/pages/login/login.html";
     }
-};
+
+    return Promise.reject(error);
+  }
+);
