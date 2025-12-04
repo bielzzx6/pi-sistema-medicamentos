@@ -4,43 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Painel de Controle</title>
-    <link rel="stylesheet" href="/public/css/global.css" />
-    <link rel="stylesheet" href="/public/css/painel.css" />
+
+    <link rel="stylesheet" href="../../public/css/global.css" />
+    <link rel="stylesheet" href="../../public/css/painel.css" />
   </head>
 
   <body>
 
+    <!-- SIDEBAR -->
     <div class="sidebar">
       <div class="user-box">
         <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" class="user-img" />
         <div>
           <strong id="sidebar-name"></strong>
           <p id="sidebar-email"></p>
-          <a href="/pages/perfil/perfil.html">Acessar Perfil</a>
+          <a href="../perfil/perfil.html">Acessar Perfil</a>
         </div>
       </div>
 
       <ul class="menu">
         <li class="active">Painel</li>
-        <li><a href="/pages/pacientes/pacientes.html">Pacientes</a></li>
-        <li><a href="/pages/cadastrarMedicamento/cadastrarMedicamento.html">Medicamentos</a></li>
-        <li><a href="/pages/cuidadores/cuidadores.html">Cuidadores</a></li>
-        <li><a href="/pages/relatorio/relatorio.html">Relatórios</a></li>
-        <li><a href="/pages/cadastrarSinal/cadastrarSinal.html">Cadastrar Sinal Vital</a></li>
+        <li><a href="../pacientes/pacientes.html">Pacientes</a></li>
+        <li><a href="../cadastrarMedicamento/cadastrarMedicamento.html">Medicamentos</a></li>
+        <li><a href="../cuidadores/cuidadores.html">Cuidadores</a></li>
+        <li><a href="../relatorio/relatorio.html">Relatórios</a></li>
       </ul>
 
       <div class="config-box">⚙️ Configurações</div>
     </div>
 
+    <!-- MAIN -->
     <div class="main">
       <header class="topbar">
         <h2>Painel de Controle</h2>
         <input type="text" placeholder="Encontrar paciente..." class="search" />
-        <a class="botao-cadastar-idoso" href="/pages/cadastroIdoso/cadastroIdoso.html">Cadastrar Idoso</a>
+        <a class="botao-cadastar-idoso" href="../cadastroIdoso/cadastroIdoso.html">Cadastrar Idoso</a>
         <div class="icons">🔔 👤</div>
       </header>
 
-      <!-- Cards aqui -->
+      <!-- GRID DOS CARDS DINÂMICOS -->
+      <div class="cards"></div>
     </div>
 
     <!-- Scripts -->

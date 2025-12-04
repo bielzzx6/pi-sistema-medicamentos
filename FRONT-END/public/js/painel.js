@@ -1,92 +1,103 @@
 // painel.js
 document.addEventListener("DOMContentLoaded", () => {
-  const recentContainer = document.querySelector(".cards"); // usa sua grid de cards
+  const cardsContainer = document.querySelector(".cards");
   const sidebarName = document.getElementById("sidebar-name");
   const sidebarEmail = document.getElementById("sidebar-email");
 
-  function getPhotoUrl(fotoPath) {
-    if (!fotoPath) return "https://i.pravatar.cc/100";
-    return window.location.origin + fotoPath;
-  }
-
-  // Preenche dados do admin (se tiver admin salvo localmente)
+  // ==================================================
+  // 1. Exibe dados do admin logado
+  // ==================================================
   const adminStr = localStorage.getItem("admin");
   if (adminStr) {
     try {
       const admin = JSON.parse(adminStr);
-      if (sidebarName) sidebarName.textContent = admin.nome || "";
-      if (sidebarEmail) sidebarEmail.textContent = admin.email || "";
-    } catch (e) {}
+      sidebarName.textContent = admin.nome;
+      sidebarEmail.textContent = admin.email;
+    } catch (_) {}
   }
 
-  async function loadSummary() {
-    try {
-      const res = await axios.get("/api/idosos");
-      const idosos = res.data || [];
-
-      // resumo simples
-      const total = idosos.length;
-      const totalMedicamentos = idosos.reduce((acc, i) => acc + (i.medicamentos?.length || 0), 0);
-      const totalCuidadores = new Set(idosos.flatMap(i => (i.cuidadores || []).map(c => c.nome))).size;
-
-      // montar cards de resumo no topo (pode trocar pelo layout existente)
-      const summaryHtml = `
-        <div class="summary-row">
-          <div class="summary-card"><h3>${total}</h3><p>Idosos</p></div>
-          <div class="summary-card"><h3>${totalMedicamentos}</h3><p>Medicamentos</p></div>
-          <div class="summary-card"><h3>${totalCuidadores}</h3><p>Cuidadores</p></div>
-        </div>
-      `;
-
-      // inserir antes dos cards (ou adaptar conforme seu layout)
-      const containerParent = document.querySelector(".main");
-      if (containerParent) {
-        const existing = document.querySelector(".summary-row");
-        if (!existing) containerParent.insertAdjacentHTML("afterbegin", summaryHtml);
-      }
-
-      // últimos 4 idosos (ordenar por createdAt desc)
-      const sorted = idosos.slice().sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
-      const latest = sorted.slice(0, 4);
-
-      // limpar e renderizar os patient-card usando seu HTML existente
-      const cardsContainer = document.querySelector(".cards");
-      if (!cardsContainer) return;
-
-      cardsContainer.innerHTML = "";
-
-      latest.forEach(i => {
-        const card = document.createElement("div");
-        card.className = "patient-card";
-        card.innerHTML = `
-          <img src="${getPhotoUrl(i.foto)}" class="photo" />
-          <h3>${escapeHtml(i.nome)}</h3>
-          <div class="tags">
-            <span class="tag">${i.medicamentos?.some(m=>m.ativo) ? "💊" : "○"}</span>
-          </div>
-          <div class="info">
-            <p class="label">PRÓXIMA AÇÃO</p>
-            <p class="value">${escapeHtml(i.medicamentos?.[0]?.nome || "Nenhuma ação")}</p>
-          </div>
-          <div class="info">
-            <p class="label">EVENTOS RECENTES</p>
-            <p class="value">${escapeHtml(i.informacoes || "Nenhuma alteração")}</p>
-          </div>
-          <button class="btn"><a href="/pages/idoso/idoso.html?id=${i._id}">Ver Detalhes</a></button>
-        `;
-        cardsContainer.appendChild(card);
-      });
-
-    } catch (err) {
-      console.error(err);
-    }
+  // ==================================================
+  // 2. Constrói URL da imagem
+  // ==================================================
+  function getPhotoUrl(foto) {
+    if (!foto) return "https://i.pravatar.cc/100"; // fallback
+    return `${window.location.origin}${foto}`;
   }
 
   function escapeHtml(str) {
     return String(str || "").replace(/[&<>"']/g, (m) => ({
-      "&": "&amp;","<": "&lt;",">": "&gt;",'"': "&quot;","'": "&#39;"
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
     }[m]));
   }
 
-  loadSummary();
+  // ==================================================
+  // 3. Carrega os idosos mais recentes
+  // ==================================================
+  async function loadLatestIdosos() {
+    try {
+      const res = await axios.get("/api/idosos");
+      const idosos = res.data;
+
+      if (!Array.isArray(idosos)) return;
+
+      // Ordena por data de criação (decrescente)
+      const sorted = idosos.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+      // Pega os 4 mais novos
+      const latest = sorted.slice(0, 4);
+
+      cardsContainer.innerHTML = "";
+
+      latest.forEach((i) => {
+        const medicamento = i.medicamentos?.[0];
+        const proximaAcao = medicamento
+          ? `${escapeHtml(medicamento.nome)} às ${medicamento.horario || ""}`
+          : "Nenhuma ação";
+
+        const eventos = i.informacoes?.trim() || "Nenhuma alteração";
+
+        const card = document.createElement("div");
+        card.className = "patient-card";
+
+        card.innerHTML = `
+          <img src="${getPhotoUrl(i.foto)}" class="photo" />
+
+          <h3>${escapeHtml(i.nome)}</h3>
+
+          <div class="tags">
+            <span class="tag orange">!</span>
+            <span class="tag yellow">2</span>
+            <span class="tag blue">📅</span>
+          </div>
+
+          <div class="info">
+            <p class="label">PRÓXIMA AÇÃO</p>
+            <p class="value">${proximaAcao}</p>
+          </div>
+
+          <div class="info">
+            <p class="label">EVENTOS RECENTES</p>
+            <p class="value">${escapeHtml(eventos)}</p>
+          </div>
+
+          <button class="btn">
+            <a style="color:white;text-decoration:none;" href="/pages/idoso/idoso.html?id=${i._id}">
+              Ver Detalhes
+            </a>
+          </button>
+        `;
+
+        cardsContainer.appendChild(card);
+      });
+
+    } catch (err) {
+      console.error("Erro ao carregar idosos:", err);
+    }
+  }
+
+  loadLatestIdosos();
 });
