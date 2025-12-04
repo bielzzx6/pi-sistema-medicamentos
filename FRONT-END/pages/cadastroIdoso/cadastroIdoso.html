@@ -13,6 +13,7 @@
   </head>
 
   <body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../../public/js/api.js"></script>
     <script src="../../public/js/auth.js"></script>
     <!-- SIDEBAR GLOBAL -->
@@ -54,6 +55,11 @@
           <div class="section-header">
             <h2>Dados Gerais</h2>
           </div>
+          
+          
+          <label class="label">Foto do Idoso</label>
+          <input type="file" name="foto" id="foto" />
+
 
           <label class="label">Nome completo</label>
           <input
@@ -164,8 +170,7 @@
               </div>
 
               <label class="label">Observações médicas</label>
-              <textarea class="input textarea" name="condicao_obs[]">
-Quadro estável. Uso contínuo de Losartana 50mg.</textarea
+              <textarea class="input textarea" name="condicao_obs[]">Quadro estável. Uso contínuo de Losartana 50mg.</textarea
               >
             </div>
           </div>
@@ -185,6 +190,6 @@ Quadro estável. Uso contínuo de Losartana 50mg.</textarea
       </form>
     </main>
 
-    <script src="./cadastroIdoso.js"></script>
+    <script src="../../public/js/cadastroIdoso.js"></script>
   </body>
 </html>

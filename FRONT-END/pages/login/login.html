@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cuidar+ - Login</title>
-    <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="/public/css/login.css" />
   </head>
+
   <body>
     <div class="container">
       <div class="logo-area">
@@ -15,9 +16,7 @@
 
       <div class="card">
         <h1>Bem-vindo(a) de volta!</h1>
-        <p class="subtitle">
-          Faça login para gerenciar cuidados e informações.
-        </p>
+        <p class="subtitle">Faça login para gerenciar cuidados e informações.</p>
 
         <form>
           <label>E-mail ou CPF</label>
@@ -37,22 +36,22 @@
             <label class="remember">
               <input type="checkbox" /> Lembrar-me
             </label>
-
             <a href="#" class="forgot">Esqueci minha senha</a>
           </div>
 
-         <button type="submit" class="btn">Entrar</button>
+          <button type="submit" class="btn">Entrar</button>
 
           <p class="register">
             Ainda não possui uma conta?
-            <a href="../register/register.html"
-              >Cadastre-se</a
-            >
+            <a href="/pages/register/register.html">Cadastre-se</a>
           </p>
         </form>
       </div>
     </div>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/public/js/api.js"></script>
     <script src="login.js"></script>
   </body>
 </html>

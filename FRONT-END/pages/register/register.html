@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registro - HealthCare App</title>
-    <link rel="stylesheet" href="../../public/css/register.css" />
+    <link rel="stylesheet" href="/public/css/register.css" />
   </head>
+
   <body>
     <div class="container">
       <div class="card">
@@ -14,14 +15,9 @@
           <h2>HealthCare App</h2>
         </div>
 
-        <h1 class="title">
-          Crie sua Conta de <br />
-          Administrador
-        </h1>
+        <h1 class="title">Crie sua Conta de Administrador</h1>
 
-        <p class="subtitle">
-          Preencha os campos abaixo para começar a gerenciar os cuidados.
-        </p>
+        <p class="subtitle">Preencha os campos abaixo para continuar.</p>
 
         <form class="form">
           <label>Nome Completo</label>
@@ -54,12 +50,15 @@
           <button type="submit" class="btn">Criar Conta</button>
 
           <p class="login-link">
-            Já tem uma conta? <a href="../login/login.html">Faça login</a>
+            Já tem uma conta? <a href="/pages/login/login.html">Faça login</a>
           </p>
         </form>
       </div>
     </div>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/public/js/api.js"></script>
     <script src="register.js"></script>
   </body>
 </html>

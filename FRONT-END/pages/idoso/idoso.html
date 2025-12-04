@@ -1,69 +1,89 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfil do Paciente</title>
-
-    <!-- GLOBAL CSS -->
-    <link rel="stylesheet" href="../../css/global.css" />
-    <link rel="stylesheet" href="../../css/idoso.css" />
-  </head>
-
-  <body>
-    <script src="../../public/js/api.js"></script>
-    <script src="../../public/js/auth.js"></script>
-    <!-- SIDEBAR -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Perfil do Idoso</title>
+  <link rel="stylesheet" href="/FRONT-END/public/css/global.css" />
+  <link rel="stylesheet" href="/FRONT-END/public/css/idoso.css" />
+</head>
+<body>
+  <!-- scripts carregados no final -->
+  <div class="layout">
     <aside class="sidebar">
+      <!-- copia sidebar do painel - mantém ids para preencher -->
       <div class="user-box">
-        <img src="https://i.pravatar.cc/80?img=45" class="user-img" />
+        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" class="user-img" />
         <div>
-          <strong>Dr. Ana Souza</strong>
-          <p>Geriatra</p>
+          <strong id="sidebar-name"></strong>
+          <p id="sidebar-email"></p>
+          <a href="/pages/perfil/perfil.html">Acessar Perfil</a>
         </div>
       </div>
-
       <ul class="menu">
-        <li><a href="../painel/painel.html">Painel</a></li>
+        <li><a href="/pages/painel/painel.html">Painel</a></li>
+        <li><a href="/pages/pacientes/pacientes.html">Pacientes</a></li>
       </ul>
-
-      <div class="config-box">⚙️ Configurações</div>
     </aside>
 
-    <!-- CONTEÚDO -->
     <main class="main">
-      <!-- TOPBAR -->
-      <div class="topbar">
-        <input type="text" class="search" placeholder="Pesquisar paciente..." />
-        <div class="icons">
-          🔔
-          <img src="https://i.pravatar.cc/40" class="profile-img" />
+      <div class="topbar"><h2 id="idoso-title">Carregando...</h2></div>
+
+      <div class="card idoso-card">
+        <div class="left">
+          <img id="idoso-photo" src="https://i.pravatar.cc/120" class="profile-photo" />
+          <div class="info">
+            <h2 id="idoso-nome"></h2>
+            <span id="idoso-age"></span>
+            <p id="idoso-info"></p>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a id="editar-link" class="btn" href="#">Editar</a>
+          <button id="excluir-btn" class="btn btn-danger">Excluir</button>
         </div>
       </div>
 
-      <!-- TÍTULO -->
-      <h1 class="page-title">Perfil de Maria da Silva</h1>
+      <section class="card">
+        <h3>Contatos</h3>
+        <ul id="idoso-contatos"></ul>
+      </section>
 
-      <!-- CARD PRINCIPAL -->
-      <div class="card patient-card">
-        <img src="https://i.pravatar.cc/130?img=55" class="patient-photo" />
-        <div>
-          <h2>Maria da Silva</h2>
-          <p>82 anos</p>
-          <span class="badge badge-success">Cuidados Ativos</span>
-        </div>
-      </div>
+      <section class="card">
+        <h3>Doenças & Condições</h3>
+        <div id="idoso-doencas"></div>
+      </section>
 
-      <!-- ABAS -->
-      <div class="tabs">
-        <button class="tab active" data-tab="medicamentos">Medicamentos</button>
-        <button class="tab" data-tab="sinaisvitais">Sinais Vitais</button>
-      </div>
+      <section class="card">
+        <h3>Medicamentos</h3>
+        <div id="idoso-medicamentos"></div>
+      </section>
 
-      <!-- CONTEÚDO DINÂMICO -->
-      <div id="tab-content"></div>
+      <section class="card">
+        <h3>Sinais Vitais</h3>
+        <div id="idoso-sinais"></div>
+
+        <h4>Adicionar novo registro rápido</h4>
+        <form id="sinal-form">
+          <div class="row">
+            <input name="pressao_sistolica" placeholder="Sistólica" type="number" />
+            <input name="pressao_diastolica" placeholder="Diastólica" type="number" />
+            <input name="batimentos" placeholder="BPM" type="number" />
+            <input name="temperatura" placeholder="°C" type="number" step="0.1" />
+          </div>
+          <textarea name="observacoes" placeholder="Observações"></textarea>
+          <button type="submit" class="btn">Salvar Registro</button>
+        </form>
+      </section>
+
     </main>
+  </div>
 
-    <script src="../../js/idoso.js"></script>
-  </body>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="/FRONT-END/public/js/api.js"></script>
+  <script src="/FRONT-END/public/js/auth.js"></script>
+  <script src="/FRONT-END/public/js/idoso.js"></script>
+</body>
 </html>

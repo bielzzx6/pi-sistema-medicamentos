@@ -7,12 +7,16 @@ const app = express();
 
 const connectDB = require("./config/database");
 const adminRoutes = require("./routes/adminRoutes");
-const pacienteRoutes = require("./routes/pacienteRoutes");
+const idosoRoutes = require("./routes/idosoRoutes");
 
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
+
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 // Serve arquivos estáticos do front-end
 app.use(express.static(path.join(__dirname, "..", "FRONT-END")));
@@ -27,6 +31,6 @@ connectDB();
 
 // Rotas
 app.use("/api/admin", require("./routes/adminRoutes"));
-app.use("/api/pacientes", pacienteRoutes);
+app.use("/api/idosos", require("./routes/idosoRoutes"));
 
 module.exports = app;
