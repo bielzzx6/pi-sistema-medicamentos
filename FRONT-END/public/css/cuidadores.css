@@ -1,0 +1,83 @@
+/* ----- estilização da tabela ----- */
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: var(--gray-100);
+}
+
+th {
+  text-align: left;
+  padding: 14px 18px;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+td {
+  padding: 14px 18px;
+  border-top: 1px solid var(--gray-200);
+  font-size: 14px;
+}
+
+/* ações */
+.edit {
+  color: var(--primary);
+  cursor: pointer;
+  margin-right: 14px;
+}
+
+.delete {
+  color: var(--danger);
+  cursor: pointer;
+}
+
+/* paginação */
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+.page {
+  padding: 8px 14px;
+  background: white;
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.page.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.dots {
+  padding: 8px;
+}
+
+/* responsivo */
+@media (max-width: 800px) { 
+  table thead { display: none; }
+  
+  table tr {
+    display: block;
+    margin-bottom: 12px;
+    background: white;
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  table td {
+    display: flex;
+    justify-content: space-between;
+    border: none;
+  }
+}

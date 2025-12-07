@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Login - Cuidar+</title>
+<link rel="icon" type="image/png" href="/public/logo.png" />
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#13b6ec",
+              "background-light": "#f6f8f8",
+              "background-dark": "#101d22",
+              "card-light": "#ffffff",
+              "card-dark": "#18282e",
+              "text-light-primary": "#0d181b",
+              "text-dark-primary": "#f1f1f1",
+              "text-light-secondary": "#4c869a",
+              "text-dark-secondary": "#a2b1b6",
+              "border-light": "#cfe1e7",
+              "border-dark": "#3a4a50",
+            },
+            fontFamily: {
+              display: ["Manrope", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "0.75rem",
+              xl: "1rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+    </style>
+  </head>
+
+  <body
+    class="font-display bg-background-light dark:bg-background-dark relative overflow-hidden"
+  >
+    <!-- Fundo com leve animação -->
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0 opacity-50"
+    >
+      <div
+        class="absolute -left-24 -top-24 h-64 w-64 rounded-full bg-primary/20 blur-3xl animate-pulse"
+      ></div>
+      <div
+        class="absolute -right-20 bottom-0 h-64 w-64 rounded-full bg-sky-400/10 blur-3xl animate-[pulse_5s_ease-in-out_infinite]"
+      ></div>
+    </div>
+
+    <div
+      class="relative flex min-h-screen w-full flex-col items-center justify-center px-4 py-8"
+    >
+      <div class="flex w-full max-w-md flex-col items-center gap-8">
+        <!-- Logo Header -->
+        <div class="flex flex-col items-center gap-3 text-center">
+          <div
+            class="relative flex items-center justify-center gap-3 rounded-full overflow-hidden"
+          >
+            <img src="/public/logo.png" class="w-32 h-32"></img>
+          </div>
+        </div>
+
+        <!-- Card -->
+        <div
+          class="w-full rounded-2xl border border-border-light/80 bg-card-light/95 p-6 shadow-lg shadow-sky-900/5 backdrop-blur-sm dark:border-border-dark/80 dark:bg-card-dark/95 sm:p-8"
+        >
+          <div class="flex flex-col gap-6">
+            <!-- Heading -->
+            <div class="flex flex-col gap-1.5 text-center">
+              <p
+                class="text-2xl font-bold leading-tight tracking-tight text-text-light-primary dark:text-text-dark-primary"
+              >
+                Bem-vindo(a) de volta!
+              </p>
+              <p
+                class="text-sm text-text-light-secondary dark:text-text-dark-secondary"
+              >
+                Acesse sua conta para continuar cuidando de quem importa.
+              </p>
+            </div>
+
+            <!-- Feedback (erro/sucesso) -->
+            <div
+              id="login-feedback"
+              class="hidden rounded-lg border px-3 py-2 text-xs sm:text-sm"
+              role="alert"
+              aria-live="polite"
+            >
+            </div>
+
+            <!-- Form -->
+            <form id="login-form" class="flex flex-col gap-4" novalidate>
+              <!-- E-mail / CPF -->
+              <div class="flex flex-col gap-1.5">
+                <label
+                  class="text-sm font-medium text-text-light-primary dark:text-text-dark-primary"
+                  for="email"
+                >
+                  E-mail ou CPF
+                </label>
+                <div class="relative flex w-full items-center">
+                  <span
+                    class="material-symbols-outlined pointer-events-none absolute left-3 text-lg text-text-light-secondary dark:text-text-dark-secondary"
+                    aria-hidden="true"
+                  >
+                    person
+                  </span>
+                  <input
+                    id="email"
+                    name="email"
+                    type="text"
+                    autocomplete="username"
+                    class="h-11 w-full rounded-lg border border-border-light bg-background-light/80 py-2 pl-10 pr-3 text-sm text-text-light-primary placeholder:text-text-light-secondary/80 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-border-dark dark:bg-background-dark/80 dark:text-text-dark-primary dark:placeholder:text-text-dark-secondary/80"
+                    placeholder="Digite seu e-mail ou CPF"
+                    required
+                  />
+                </div>
+                <p
+                  id="email-error"
+                  class="mt-1 hidden text-xs text-red-600 dark:text-red-400"
+                >
+                  <!-- Preenchido via JS em caso de erro -->
+                </p>
+              </div>
+
+              <!-- Senha -->
+              <div class="flex flex-col gap-1.5">
+                <label
+                  class="text-sm font-medium text-text-light-primary dark:text-text-dark-primary"
+                  for="password"
+                >
+                  Senha
+                </label>
+                <div class="relative flex w-full items-center">
+                  <span
+                    class="material-symbols-outlined pointer-events-none absolute left-3 text-lg text-text-light-secondary dark:text-text-dark-secondary"
+                    aria-hidden="true"
+                  >
+                    lock
+                  </span>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autocomplete="current-password"
+                    class="h-11 w-full rounded-lg border border-border-light bg-background-light/80 py-2 pl-10 pr-10 text-sm text-text-light-primary placeholder:text-text-light-secondary/80 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-border-dark dark:bg-background-dark/80 dark:text-text-dark-primary dark:placeholder:text-text-dark-secondary/80"
+                    placeholder="Digite sua senha"
+                    required
+                  />
+                  <button
+                    type="button"
+                    id="toggle-password"
+                    class="absolute right-0 flex h-full w-10 items-center justify-center text-text-light-secondary dark:text-text-dark-secondary"
+                    aria-label="Mostrar ou ocultar senha"
+                  >
+                    <span
+                      class="material-symbols-outlined text-xl"
+                      aria-hidden="true"
+                    >
+                      visibility_off
+                    </span>
+                  </button>
+                </div>
+                <p
+                  id="password-error"
+                  class="mt-1 hidden text-xs text-red-600 dark:text-red-400"
+                >
+                  <!-- Preenchido via JS em caso de erro -->
+                </p>
+              </div>
+
+              <!-- Opções -->
+              <div
+                class="mt-1 flex flex-wrap items-center justify-between gap-2"
+              >
+                <label
+                  class="flex cursor-pointer select-none items-center gap-2"
+                >
+                  <input
+                    id="remember-me"
+                    type="checkbox"
+                    class="h-4 w-4 rounded border-2 border-border-light bg-transparent text-primary focus:ring-primary/50 focus:ring-offset-0 dark:border-border-dark"
+                  />
+                  <span
+                    class="text-sm font-medium text-text-light-primary dark:text-text-dark-primary"
+                  >
+                    Lembrar-me
+                  </span>
+                </label>
+
+                <a
+                  href="#"
+                  class="text-xs sm:text-sm font-medium text-primary hover:underline"
+                >
+                  Esqueci minha senha
+                </a>
+              </div>
+
+              <!-- Botão de envio com loading -->
+              <button
+                id="btn-login"
+                type="submit"
+                class="mt-2 flex h-11 w-full items-center justify-center gap-2 overflow-hidden rounded-lg bg-primary text-sm sm:text-base font-bold text-white shadow-md shadow-primary/20 transition-all hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background-light disabled:cursor-not-allowed disabled:opacity-70 dark:focus:ring-offset-background-dark"
+              >
+                <!-- Spinner escondido por padrão; JS remove 'hidden' quando estiver carregando -->
+                <span
+                  id="btn-login-spinner"
+                  class="hidden h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"
+                  aria-hidden="true"
+                ></span>
+                <span id="btn-login-text" class="truncate"> Entrar </span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Link cadastro -->
+        <div class="text-center">
+          <p
+            class="text-sm text-text-light-secondary dark:text-text-dark-secondary"
+          >
+            Ainda não possui uma conta?
+            <a
+              href="/pages/register/register.html"
+              class="font-bold text-primary hover:underline"
+            >
+              Cadastre-se
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/public/js/api.js"></script>
+    <script src="/public/js/login.js"></script>
+  </body>
+</html>

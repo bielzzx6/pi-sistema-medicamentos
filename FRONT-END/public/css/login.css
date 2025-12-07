@@ -1,0 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: #f5f7fa;
+}
+
+/* -------------- Layout principal -------------- */
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* -------------- Logo -------------- */
+
+.logo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.logo-area .circle {
+  width: 38px;
+  height: 38px;
+  background: #0ea5e9;
+  border-radius: 50%;
+}
+
+.logo-area h2 {
+  margin-top: 10px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* -------------- Card -------------- */
+
+.card {
+  background: #fff;
+  width: 100%;
+  max-width: 420px;
+  padding: 35px 28px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.card h1 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 13px;
+  margin-top: 8px;
+  margin-bottom: 25px;
+}
+
+/* -------------- Formulário -------------- */
+
+label {
+  display: block;
+  text-align: left;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.input-field {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-field input {
+  width: 100%;
+  padding: 13px 38px;
+  border: 1px solid #d9d9d9;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.input-field .icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.7;
+}
+
+.input-field .toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+/* -------------- Opções -------------- */
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+  font-size: 13px;
+}
+
+.options a {
+  text-decoration: none;
+  color: #0ea5e9;
+}
+
+/* -------------- Botão -------------- */
+
+.btn {
+  width: 100%;
+  padding: 13px;
+  background: #0ea5e9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.btn:hover {
+  background: #0284c7;
+}
+
+/* -------------- Link de cadastro -------------- */
+
+.register {
+  font-size: 13px;
+  color: #333;
+}
+
+.register a {
+  color: #0ea5e9;
+  text-decoration: none;
+}
+
+/* -------------- RESPONSIVIDADE -------------- */
+
+@media (max-width: 600px) {
+  .card {
+    padding: 28px 20px;
+  }
+
+  .card h1 {
+    font-size: 20px;
+  }
+
+  input {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 400px) {
+  .logo-area h2 {
+    font-size: 20px;
+  }
+
+  .btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+}

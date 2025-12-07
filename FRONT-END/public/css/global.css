@@ -1,0 +1,273 @@
+/* -----------------------------------------------------
+   RESET GLOBAL
+------------------------------------------------------ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+html, body {
+  height: 100%;
+  background: #f5f7fa;
+  color: #111827;
+}
+
+/* Remove estilos padrões */
+button, input, textarea, a {
+  outline: none;
+  border: none;
+  font-family: inherit;
+  text-decoration: none;
+}
+
+/* -----------------------------------------------------
+   VARIÁVEIS DO SISTEMA
+------------------------------------------------------ */
+:root {
+  --primary: #0ea5e9;
+  --primary-dark: #0284c7;
+  --primary-light: #e0f7ff;
+
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-700: #374151;
+
+  --danger: #ef4444;
+  --warning: #facc15;
+  --success: #22c55e;
+
+  --radius: 12px;
+  --shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+/* -----------------------------------------------------
+   LAYOUT GLOBAL (SIDEBAR + MAIN)
+------------------------------------------------------ */
+
+body {
+  display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  background: #fff;
+  padding: 25px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar .user-box {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.user-img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+.sidebar .menu {
+  margin-top: 25px;
+}
+
+.sidebar .menu li {
+  list-style: none;
+  padding: 12px;
+  margin-bottom: 6px;
+  border-radius: 8px;
+}
+
+.sidebar .menu li a {
+  text-decoration: none;
+  color: var(--gray-700);
+}
+
+.sidebar .menu .active,
+.sidebar .menu li:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+/* CONFIG BOX */
+.config-box {
+  background: var(--gray-100);
+  padding: 12px;
+  border-radius: 8px;
+}
+
+/* MAIN AREA */
+.main {
+  margin-left: 260px;
+  padding: 30px;
+  width: calc(100% - 260px);
+}
+
+/* -----------------------------------------------------
+   TOPBAR GLOBAL (NAVBAR)
+------------------------------------------------------ */
+.topbar {
+  width: 100%;
+  background: #fff;
+  padding: 18px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 25px;
+}
+
+.topbar h2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.topbar .search {
+  padding: 10px 15px;
+  width: 260px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-300);
+  background: #fff;
+}
+
+.topbar .icons {
+  font-size: 20px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.topbar .profile-img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+}
+
+/* -----------------------------------------------------
+   COMPONENTES GLOBAIS
+------------------------------------------------------ */
+
+/* Botões padrão */
+.btn {
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.btn-outline:hover {
+  background: var(--primary-light);
+}
+
+/* Caixas / cards */
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+
+/* Inputs padrão */
+.input {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-300);
+  background: #fff;
+  margin-bottom: 12px;
+}
+
+.input:focus {
+  border-color: var(--primary);
+}
+
+/* Labels */
+.label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Avatar */
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+/* Titles */
+.page-title {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.page-description {
+  font-size: 14px;
+  color: var(--gray-500);
+}
+
+/* Lists padrão */
+.list-item {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 20px;
+  border: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+/* Badge */
+.badge {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.badge-success { background: #dcfce7; color: #16a34a; }
+.badge-warning { background: #fef3c7; color: #b45309; }
+.badge-danger  { background: #fee2e2; color: #b91c1c; }
+
+/* -----------------------------------------------------
+   UTILITÁRIOS (mini Tailwind)
+------------------------------------------------------ */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+
+.gap-10 { gap: 10px; }
+.gap-20 { gap: 20px; }
+
+.mt-10 { margin-top: 10px; }
+.mt-20 { margin-top: 20px; }
+
+.text-center { text-align: center; }
+

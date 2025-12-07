@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: #f5f7fa;
+  display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  background: white;
+  padding: 25px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.user-box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.user-img {
+  width: 45px;
+  border-radius: 50%;
+}
+
+.menu li {
+  list-style: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 6px;
+}
+
+.menu .active {
+  background: #e0f7ff;
+  color: #0ea5e9;
+}
+
+.config-box {
+  padding: 12px;
+  font-size: 14px;
+  background: #f3f3f3;
+  border-radius: 8px;
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 30px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.search {
+  padding: 10px 15px;
+  width: 260px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+}
+
+.patient-card {
+  background: white;
+  padding: 20px;
+  width: 240px;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.photo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.tags {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 15px;
+}
+
+.tag {
+  padding: 5px 8px;
+  border-radius: 50%;
+  font-size: 12px;
+  color: white;
+}
+
+.orange {
+  background: #f97316;
+}
+.yellow {
+  background: #facc15;
+  color: #000;
+}
+.blue {
+  background: #0ea5e9;
+}
+.gray {
+  background: #d1d5db;
+}
+
+.label {
+  font-size: 11px;
+  color: #666;
+}
+
+.value {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.btn {
+  background: #0ea5e9;
+  padding: 10px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.botao-cadastar-idoso {
+  background: #0ea5e9;
+  padding: 10px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

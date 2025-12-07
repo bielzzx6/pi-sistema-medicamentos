@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: #f5f7fa;
+}
+
+/* ------ ÁREA PRINCIPAL (dentro do layout do painel) ------ */
+
+.container {
+  width: 100%;
+  max-width: 1600px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+/* ------ TÍTULO ------ */
+
+.title-area h1 {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.title-area p {
+  margin-top: 6px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* ------ BOTÃO ADICIONAR ------ */
+
+.add-area {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0;
+}
+
+.add-btn {
+  background: #0ea5e9;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background: #0284c7;
+}
+
+/* ------ LISTA DE PACIENTES ------ */
+
+.list {
+  margin-top: 10px;
+}
+
+.item {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #e3e3e3;
+  margin-bottom: 12px;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.info h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.info span {
+  font-size: 13px;
+  color: #666;
+}
+
+/* ------ AÇÕES (EDITAR / VER PERFIL) ------ */
+
+.actions-item {
+  display: flex;
+  gap: 14px;
+}
+
+.actions-item a {
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.edit {
+  color: #666;
+}
+
+.view {
+  color: #0ea5e9;
+}
+
+/* ------ RESPONSIVIDADE ------ */
+
+@media (max-width: 800px) {
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .actions-item {
+    justify-content: flex-end;
+    width: 100%;
+  }
+}

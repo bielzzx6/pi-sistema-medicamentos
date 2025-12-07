@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Relatórios e Históricos</title>
+    <link rel="icon" type="image/png" href="/public/logo.png" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#13b6ec",
+              "background-light": "#f6f8f8",
+              "background-dark": "#101d22",
+            },
+            fontFamily: {
+              display: ["Manrope"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+    </style>
+  </head>
+
+  <body class="bg-background-light dark:bg-background-dark font-display">
+    <div class="relative flex min-h-screen w-full">
+      <!-- Layout (sidebar/topnav) via layout.js -->
+      <div id="app"></div>
+
+      <!-- Conteúdo principal alinhado com o layout -->
+      <div class="py-32 pl-72 pr-8 w-full">
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto">
+          <div class="p-8">
+            <!-- PageHeading -->
+            <div class="flex flex-wrap justify-between gap-3 mb-8">
+              <div class="flex min-w-72 flex-col gap-2">
+                <p
+                  class="text-4xl font-black tracking-[-0.033em] text-gray-900 dark:text-white"
+                >
+                  Relatórios e Históricos
+                </p>
+                <p
+                  class="text-base font-normal text-gray-500 dark:text-gray-400"
+                >
+                  Gere e visualize relatórios detalhados sobre os cuidados.
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+              <!-- Filters Panel -->
+              <div class="lg:col-span-1 sticky">
+                <div
+                  class="rounded-xl border border-gray-200/50 bg-white p-6 dark:border-gray-700/50 dark:bg-background-dark/50"
+                >
+                  <!-- SectionHeader -->
+                  <h3
+                    class="text-lg font-bold tracking-[-0.015em] text-gray-900 dark:text-white"
+                  >
+                    Filtros
+                  </h3>
+
+                  <div class="mt-6 flex flex-col gap-6">
+                    <!-- Selecionar Idoso -->
+                    <label class="flex flex-col w-full">
+                      <p
+                        class="pb-2 text-base font-medium leading-normal text-gray-800 dark:text-gray-200"
+                      >
+                        Selecionar Idoso
+                      </p>
+                      <select
+                        id="filtro-idoso"
+                        name="idosoId"
+                        class="form-select h-12 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-gray-300 bg-background-light px-3 py-2 text-base font-normal text-gray-800 placeholder:text-gray-400 focus:border-primary focus:outline-0 focus:ring-2 focus:ring-primary/50 dark:border-gray-600 dark:bg-background-dark dark:text-gray-200 dark:placeholder:text-gray-500 dark:focus:border-primary"
+                      >
+                        <!-- opções serão preenchidas via JS (relatorios.js) -->
+                        <option value="">Carregando idosos...</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Reports List -->
+              <div class="lg:col-span-2">
+                <div class="grid grid-cols-1 gap-4 @md:grid-cols-2">
+                  <!-- Medicamentos -->
+                  <div
+                    class="rounded-xl border border-gray-200/50 bg-white p-5 transition-shadow hover:shadow-lg dark:border-gray-700/50 dark:bg-background-dark/50 dark:hover:shadow-primary/10"
+                  >
+                    <div class="flex items-start gap-4">
+                      <div
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary"
+                      >
+                        <span class="material-symbols-outlined">pill</span>
+                      </div>
+                      <div class="flex flex-1 flex-col gap-2">
+                        <h4 class="font-bold text-gray-900 dark:text-white">
+                          Medicamentos
+                        </h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                          Listagem de todos os medicamentos prescritos e em uso.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="mt-4 flex items-center justify-end gap-2">
+                      <button
+                        type="button"
+                        class="rounded-lg px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                      >
+                        Visualizar
+                      </button>
+                      <button
+                        type="button"
+                        class="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90"
+                      >
+                        <span class="material-symbols-outlined text-base">
+                          download
+                        </span>
+                        <span>Exportar PDF</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Administração e Adesão -->
+                  <div
+                    class="rounded-xl border border-gray-200/50 bg-white p-5 transition-shadow hover:shadow-lg dark:border-gray-700/50 dark:bg-background-dark/50 dark:hover:shadow-primary/10"
+                  >
+                    <div class="flex items-start gap-4">
+                      <div
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary"
+                      >
+                        <span class="material-symbols-outlined">checklist</span>
+                      </div>
+                      <div class="flex flex-1 flex-col gap-2">
+                        <h4 class="font-bold text-gray-900 dark:text-white">
+                          Administração e Adesão
+                        </h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                          Acompanhe a adesão ao tratamento e horários de
+                          administração.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="mt-4 flex items-center justify-end gap-2">
+                      <button
+                        type="button"
+                        class="rounded-lg px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                      >
+                        Visualizar
+                      </button>
+                      <button
+                        type="button"
+                        class="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90"
+                      >
+                        <span class="material-symbols-outlined text-base">
+                          download
+                        </span>
+                        <span>Exportar PDF</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Sinais Vitais -->
+                  <div
+                    class="rounded-xl border border-gray-200/50 bg-white p-5 transition-shadow hover:shadow-lg dark:border-gray-700/50 dark:bg-background-dark/50 dark:hover:shadow-primary/10"
+                  >
+                    <div class="flex items-start gap-4">
+                      <div
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary"
+                      >
+                        <span class="material-symbols-outlined">
+                          monitor_heart
+                        </span>
+                      </div>
+                      <div class="flex flex-1 flex-col gap-2">
+                        <h4 class="font-bold text-gray-900 dark:text-white">
+                          Sinais Vitais
+                        </h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                          Gráficos de pressão, glicemia, frequência cardíaca e
+                          mais.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="mt-4 flex items-center justify-end gap-2">
+                      <button
+                        type="button"
+                        class="rounded-lg px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                      >
+                        Visualizar
+                      </button>
+                      <button
+                        type="button"
+                        class="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90"
+                      >
+                        <span class="material-symbols-outlined text-base">
+                          download
+                        </span>
+                        <span>Exportar PDF</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Doenças e Histórico Clínico -->
+                  <div
+                    class="rounded-xl border border-gray-200/50 bg-white p-5 transition-shadow hover:shadow-lg dark:border-gray-700/50 dark:bg-background-dark/50 dark:hover:shadow-primary/10"
+                  >
+                    <div class="flex items-start gap-4">
+                      <div
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary"
+                      >
+                        <span class="material-symbols-outlined">
+                          medical_information
+                        </span>
+                      </div>
+                      <div class="flex flex-1 flex-col gap-2">
+                        <h4 class="font-bold text-gray-900 dark:text-white">
+                          Doenças e Histórico Clínico
+                        </h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                          Informações sobre condições crônicas, alergias e
+                          cirurgias.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="mt-4 flex items-center justify-end gap-2">
+                      <button
+                        type="button"
+                        class="rounded-lg px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                      >
+                        Visualizar
+                      </button>
+                      <button
+                        type="button"
+                        class="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90"
+                      >
+                        <span class="material-symbols-outlined text-base">
+                          download
+                        </span>
+                        <span>Exportar PDF</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Eventos Adversos -->
+                  <div
+                    class="rounded-xl border border-gray-200/50 bg-white p-5 transition-shadow hover:shadow-lg dark:border-gray-700/50 dark:bg-background-dark/50 dark:hover:shadow-primary/10"
+                  >
+                    <div class="flex items-start gap-4">
+                      <div
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary"
+                      >
+                        <span class="material-symbols-outlined">warning</span>
+                      </div>
+                      <div class="flex flex-1 flex-col gap-2">
+                        <h4 class="font-bold text-gray-900 dark:text-white">
+                          Eventos Adversos
+                        </h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                          Registro de quedas, reações a medicamentos e outros
+                          incidentes.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="mt-4 flex items-center justify-end gap-2">
+                      <button
+                        type="button"
+                        class="rounded-lg px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                      >
+                        Visualizar
+                      </button>
+                      <button
+                        type="button"
+                        class="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90"
+                      >
+                        <span class="material-symbols-outlined text-base">
+                          download
+                        </span>
+                        <span>Exportar PDF</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Consultas e Exames -->
+                  <div
+                    class="rounded-xl border border-gray-200/50 bg-white p-5 transition-shadow hover:shadow-lg dark:border-gray-700/50 dark:bg-background-dark/50 dark:hover:shadow-primary/10"
+                  >
+                    <div class="flex items-start gap-4">
+                      <div
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary"
+                      >
+                        <span class="material-symbols-outlined">biotech</span>
+                      </div>
+                      <div class="flex flex-1 flex-col gap-2">
+                        <h4 class="font-bold text-gray-900 dark:text-white">
+                          Consultas e Exames
+                        </h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                          Agenda e resultados de exames e consultas médicas.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="mt-4 flex items-center justify-end gap-2">
+                      <button
+                        type="button"
+                        class="rounded-lg px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                      >
+                        Visualizar
+                      </button>
+                      <button
+                        type="button"
+                        class="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90"
+                      >
+                        <span class="material-symbols-outlined text-base">
+                          download
+                        </span>
+                        <span>Exportar PDF</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /Reports List -->
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/public/js/api.js"></script>
+    <script src="/public/js/layout.js"></script>
+    <script src="/public/js/relatorios.js"></script>
+  </body>
+</html>

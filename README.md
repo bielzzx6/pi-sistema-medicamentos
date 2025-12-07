@@ -20,3 +20,20 @@ Basta executar o sistema usando o comando a seguir no Terminal:
 ```bash
 node app.js
 ```
+
+# Baixando dependências
+````bash
+npm init -y
+npm install express mongoose bcryptjs jsonwebtoken cors dotenv
+npm install --save-dev nodemon
+```
+
+# Estrutra packagejson
+```bash
+{
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  }
+}
+```

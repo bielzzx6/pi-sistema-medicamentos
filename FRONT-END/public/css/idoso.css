@@ -1,0 +1,64 @@
+/* Ajustes específicos do perfil */
+
+/* FOTO DO PACIENTE */
+.patient-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.patient-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+/* ABAS */
+.tabs {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  padding-bottom: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  color: var(--gray-500);
+}
+
+.tab.active {
+  border-bottom: 3px solid var(--primary);
+  color: var(--primary);
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+/* ACORDEÕES */
+.accordion summary {
+  padding: 15px 0;
+  cursor: pointer;
+  border-bottom: 1px solid var(--gray-200);
+  font-weight: 500;
+}
+
+.accordion .doctor {
+  display: block;
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Criar Conta - Cuidar+</title>
+<link rel="icon" type="image/png" href="/public/logo.png" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#13b6ec",
+              "background-light": "#f6f8f8",
+              "background-dark": "#101d22",
+              success: "#22c55e",
+              danger: "#dc2626",
+            },
+            fontFamily: { display: ["Manrope", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+    </style>
+  </head>
+
+  <body class="bg-background-light dark:bg-background-dark font-display">
+    <div
+      class="min-h-screen w-full flex items-center justify-center px-4 py-12"
+    >
+      <div
+        class="w-full max-w-lg rounded-xl shadow-md bg-white dark:bg-background-dark/40 backdrop-blur-md border border-gray-200/60 dark:border-gray-700/50 p-8 animate-fade-in"
+      >
+        <!-- Logo -->
+         <div class="flex flex-col items-center gap-3 text-center">
+          <div
+            class="relative flex items-center justify-center gap-3 rounded-full overflow-hidden"
+          >
+            <img src="/public/logo.png" class="w-32 h-32"></img>
+          </div>
+        </div>
+
+        <!-- Feedback visual -->
+        <div
+          id="register-feedback"
+          class="hidden mb-4 rounded-lg border px-3 py-2 text-sm"
+          role="alert"
+          aria-live="polite"
+        ></div>
+
+        <!-- Form -->
+        <form id="register-form" class="space-y-5">
+          <!-- Nome -->
+          <div>
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300"
+              >Nome Completo</label
+            >
+            <input
+              id="nome"
+              type="text"
+              class="mt-1 w-full h-11 rounded-lg border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark px-3 text-sm focus:ring-primary focus:border-primary"
+              placeholder="Digite seu nome completo"
+            />
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300"
+              >E-mail</label
+            >
+            <input
+              id="email"
+              type="email"
+              class="mt-1 w-full h-11 rounded-lg border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark px-3 text-sm focus:ring-primary focus:border-primary"
+              placeholder="seuemail@exemplo.com"
+            />
+          </div>
+
+          <!-- CPF + Telefone -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label
+                class="text-sm font-medium text-gray-700 dark:text-gray-300"
+                >CPF</label
+              >
+              <input
+                id="cpf"
+                type="text"
+                class="mt-1 w-full h-11 rounded-lg border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark px-3 text-sm focus:ring-primary focus:border-primary"
+                placeholder="000.000.000-00"
+              />
+            </div>
+
+            <div>
+              <label
+                class="text-sm font-medium text-gray-700 dark:text-gray-300"
+                >Telefone/WhatsApp</label
+              >
+              <input
+                id="telefone"
+                type="tel"
+                class="mt-1 w-full h-11 rounded-lg border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark px-3 text-sm focus:ring-primary focus:border-primary"
+                placeholder="(00) 00000-0000"
+              />
+            </div>
+          </div>
+
+          <!-- Senha -->
+          <div>
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300"
+              >Senha</label
+            >
+            <div class="relative">
+              <input
+                id="senha"
+                type="password"
+                class="mt-1 w-full h-11 pr-10 rounded-lg border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark px-3 text-sm focus:ring-primary focus:border-primary"
+                placeholder="Crie uma senha forte"
+              />
+              <button
+                type="button"
+                id="toggle-pass"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-primary"
+              >
+                <span class="material-symbols-outlined">visibility_off</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Confirmar Senha -->
+          <div>
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300"
+              >Confirmar Senha</label
+            >
+            <input
+              id="confirmar"
+              type="password"
+              class="mt-1 w-full h-11 rounded-lg border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark px-3 text-sm focus:ring-primary focus:border-primary"
+              placeholder="Repita a senha"
+            />
+          </div>
+
+          <!-- Botão -->
+          <button
+            type="submit"
+            id="register-btn"
+            class="w-full h-11 rounded-lg bg-primary text-white font-bold hover:bg-primary/90 transition flex items-center justify-center gap-2"
+          >
+            Criar Conta
+          </button>
+
+          <!-- Loading -->
+          <div
+            id="register-loading"
+            class="hidden text-center text-sm text-gray-600 dark:text-gray-300"
+          >
+            Criando conta...
+          </div>
+
+          <!-- Link Login -->
+          <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+            Já possui conta?
+            <a href="/pages/login" class="text-primary font-semibold underline">
+              Fazer login
+            </a>
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <script src="/public/js/register.js"></script>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+/* GRID PRINCIPAL PARA RELATÓRIOS */
+.reports-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+/* FILTROS */
+.filters h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-btn {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #f8fafc;
+  cursor: pointer;
+  text-align: left;
+}
+
+.filter-btn.active {
+  background: #0ea5e9;
+  border-color: #0ea5e9;
+  color: white;
+}
+
+/* LISTA DE RELATÓRIOS */
+.reports-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.report-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.report-item .left {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #e0f2fe;
+  color: #0284c7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+}
+
+.report-item h4 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.report-item p {
+  font-size: 13px;
+  color: #666;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 950px) {
+  .reports-grid {
+    grid-template-columns: 1fr;
+  }
+}

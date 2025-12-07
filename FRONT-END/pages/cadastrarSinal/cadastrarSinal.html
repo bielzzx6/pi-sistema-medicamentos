@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro de Sinais Vitais</title>
+    <link rel="icon" type="image/png" href="/public/logo.png" />
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../../css/global.css" />
+
+    <!-- CSS específico da página -->
+    <link rel="stylesheet" href="../../css/cadastrarSinais.css" />
+  </head>
+
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../../public/js/api.js"></script>
+    <script src="../../public/js/auth.js"></script>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="user-box">
+        <img src="https://i.pravatar.cc/80" class="user-img" />
+        <div>
+          <strong>Maria Silva</strong>
+          <p style="font-size: 13px; color: var(--gray-500)">Cuidadora</p>
+        </div>
+      </div>
+
+      <ul class="menu">
+        <li><a href="../painel/painel.html">Painel</a></li>
+      </ul>
+
+      <div class="config-box">⚙️ Configurações</div>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="main">
+      <div class="card">
+        <h2 class="section-title">Novo Registro</h2>
+
+        <!-- GRID 1 -->
+        <div class="row">
+          <div class="col">
+            <label>Data da Medição</label>
+            <input type="date" class="input" />
+          </div>
+
+          <div class="col">
+            <label>Hora da Medição</label>
+            <input type="time" class="input" />
+          </div>
+        </div>
+
+        <!-- GRID 2 -->
+        <div class="row">
+          <div class="col">
+            <label>Pressão Sistólica (mmHg)</label>
+            <input type="number" class="input" placeholder="120" />
+          </div>
+
+          <div class="col">
+            <label>Pressão Diastólica (mmHg)</label>
+            <input type="number" class="input" placeholder="80" />
+          </div>
+        </div>
+
+        <!-- GRID 3 -->
+        <div class="row">
+          <div class="col">
+            <label>Frequência Cardíaca (bpm)</label>
+            <input type="number" class="input" placeholder="72" />
+          </div>
+
+          <div class="col">
+            <label>Temperatura (°C)</label>
+            <input type="number" class="input" placeholder="36.5" />
+          </div>
+        </div>
+
+        <!-- GRID 4 -->
+        <div class="row">
+          <div class="col">
+            <label>Saturação (%)</label>
+            <input type="number" class="input" placeholder="98" />
+          </div>
+
+          <div class="col">
+            <label>Peso (kg)</label>
+            <input type="number" class="input" placeholder="70.2" />
+          </div>
+        </div>
+
+        <!-- GLICEMIA -->
+        <label>
+          Glicemia (mg/dL)
+          <small style="color: var(--gray-500)">(Opcional)</small>
+        </label>
+        <input type="number" class="input" placeholder="99" />
+
+        <!-- OBSERVAÇÕES -->
+        <label>Observações</label>
+        <textarea
+          class="input"
+          placeholder="Ex: Medição realizada após o café da manhã..."
+        ></textarea>
+
+        <!-- AÇÕES -->
+        <div
+          class="actions"
+          style="
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 20px;
+          "
+        >
+          <button class="btn btn-outline">Limpar</button>
+          <button class="btn">Salvar Registro</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

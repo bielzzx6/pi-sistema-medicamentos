@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Gerenciamento de Perfis - SeniorCare</title>
+    <link rel="icon" type="image/png" href="/public/logo.png" />
+    <!-- Tailwind + Fonts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,0"
+      rel="stylesheet"
+    />
+
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        vertical-align: middle;
+      }
+    </style>
+
+    <!-- Tailwind config -->
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#13b6ec",
+              "background-light": "#f6f8f8",
+              "background-dark": "#101d22",
+              "text-light-primary": "#0d181b",
+              "text-light-secondary": "#4c869a",
+              "text-dark-primary": "#f6f8f8",
+              "text-dark-secondary": "#a2b4b9",
+              "card-light": "#ffffff",
+              "card-dark": "#1a2a32",
+              "border-light": "#e7f0f3",
+              "border-dark": "#2a3f4a",
+              "input-light": "#e7f0f3",
+              "input-dark": "#1a2a32",
+              "badge-green": "#16a34a",
+              "badge-yellow": "#facc15",
+              "badge-red": "#dc2626",
+            },
+            fontFamily: {
+              display: ["Manrope", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "0.75rem",
+              xl: "1rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="font-display bg-background-light dark:bg-background-dark">
+    <div id="app"></div>
+
+    <div class="py-32 pl-72 pr-8">
+      <div class="w-full">
+        <main class="flex-1">
+          <div class="max-w-5xl mx-auto px-2 sm:px-4 lg:px-0">
+            <!-- Título + botão -->
+            <div class="flex flex-wrap justify-between items-center gap-6 mb-8">
+              <div class="flex flex-col gap-2 min-w-0">
+                <p
+                  class="text-text-light-primary dark:text-text-dark-primary text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em]"
+                >
+                  Gerenciamento de Perfis
+                </p>
+                <p
+                  class="text-text-light-secondary dark:text-text-dark-secondary text-base font-normal leading-normal"
+                >
+                  Adicione, visualize e edite os perfis dos idosos sob seus
+                  cuidados.
+                </p>
+              </div>
+
+              <div class="w-full sm:w-auto">
+                <!-- mantém classe add-btn para o JS -->
+                <button
+                  class="add-btn flex w-full sm:w-auto min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-text-light-primary gap-2 text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity"
+                  type="button"
+                >
+                  <span class="material-symbols-outlined">add</span>
+                  <span class="truncate">Adicionar Novo Idoso</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Lista de perfis -->
+            <div class="space-y-4 list">
+              <!-- CARD 1 -->
+              <div
+                class="flex flex-col md:flex-row items-start md:items-center gap-4 bg-card-light dark:bg-card-dark px-5 py-4 rounded-lg shadow-sm border border-border-light dark:border-border-dark"
+              >
+                <!-- Avatar + dados principais -->
+                <div class="flex items-start gap-4 w-full">
+                  <!-- Avatar -->
+                  <div
+                    class="bg-center bg-no-repeat bg-cover rounded-full h-16 w-16 shrink-0 border border-border-light dark:border-border-dark"
+                    style="
+                      background-image: url('https://images.pexels.com/photos/7551661/pexels-photo-7551661.jpeg?auto=compress&cs=tinysrgb&w=160');
+                    "
+                  ></div>
+
+                  <!-- Dados -->
+                  <div class="flex-1 min-w-0 space-y-1">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <p
+                        class="text-text-light-primary dark:text-text-dark-primary text-base md:text-lg font-semibold leading-snug truncate"
+                      >
+                        Maria das Dores
+                      </p>
+                      <!-- Idade / Sexo -->
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                      >
+                        82 anos · Feminino
+                      </span>
+                    </div>
+
+                    <!-- Info secundária (condições principais) -->
+                    <p
+                      class="text-text-light-secondary dark:text-text-dark-secondary text-sm leading-snug line-clamp-2"
+                    >
+                      Hipertensão controlada · Monitoramento de pressão arterial
+                      diário · Acompanhamento com cardiologista.
+                    </p>
+
+                    <!-- Tags rápidas -->
+                    <div class="flex flex-wrap gap-2 pt-1">
+                      <span
+                        class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium bg-badge-green/10 text-badge-green"
+                      >
+                        <span class="material-symbols-outlined text-[14px]">
+                          favorite
+                        </span>
+                        Risco baixo
+                      </span>
+                      <span
+                        class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium bg-primary/10 text-primary"
+                      >
+                        <span class="material-symbols-outlined text-[14px]">
+                          medications
+                        </span>
+                        Losartana · 50mg
+                      </span>
+                      <span
+                        class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                      >
+                        <span class="material-symbols-outlined text-[14px]">
+                          calendar_today
+                        </span>
+                        Próxima consulta: 12/03
+                      </span>
+                    </div>
+
+                    <!-- Contato principal -->
+                    <div class="flex flex-wrap gap-3 pt-2 text-xs sm:text-sm">
+                      <div
+                        class="flex items-center gap-1 text-slate-500 dark:text-slate-300"
+                      >
+                        <span class="material-symbols-outlined text-[16px]">
+                          contact_phone
+                        </span>
+                        <span>Filha: (11) 99999-0000</span>
+                      </div>
+                      <div
+                        class="flex items-center gap-1 text-slate-500 dark:text-slate-300"
+                      >
+                        <span class="material-symbols-outlined text-[16px]">
+                          home
+                        </span>
+                        <span>Residencial Bem Viver · Quarto 203</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Ações -->
+                <div
+                  class="flex flex-row md:flex-col gap-2 md:gap-3 w-full md:w-auto md:items-end"
+                >
+                  <button
+                    type="button"
+                    class="flex-1 md:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-border-light dark:border-border-dark text-sm font-medium text-text-light-secondary dark:text-text-dark-secondary hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                  >
+                    <span class="material-symbols-outlined text-[18px]">
+                      edit
+                    </span>
+                    Editar
+                  </button>
+                  <button
+                    type="button"
+                    class="flex-1 md:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+                  >
+                    <span class="material-symbols-outlined text-[18px]">
+                      visibility
+                    </span>
+                    Ver perfil
+                  </button>
+                </div>
+              </div>
+
+              <!-- CARD 2 -->
+              <div
+                class="flex flex-col md:flex-row items-start md:items-center gap-4 bg-card-light dark:bg-card-dark px-5 py-4 rounded-lg shadow-sm border border-border-light dark:border-border-dark"
+              >
+                <div class="flex items-start gap-4 w-full">
+                  <div
+                    class="bg-center bg-no-repeat bg-cover rounded-full h-16 w-16 shrink-0 border border-border-light dark:border-border-dark"
+                    style="
+                      background-image: url('https://images.pexels.com/photos/3768131/pexels-photo-3768131.jpeg?auto=compress&cs=tinysrgb&w=160');
+                    "
+                  ></div>
+
+                  <div class="flex-1 min-w-0 space-y-1">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <p
+                        class="text-text-light-primary dark:text-text-dark-primary text-base md:text-lg font-semibold leading-snug truncate"
+                      >
+                        João da Silva
+                      </p>
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                      >
+                        78 anos · Masculino
+                      </span>
+                    </div>
+
+                    <p
+                      class="text-text-light-secondary dark:text-text-dark-secondary text-sm leading-snug line-clamp-2"
+                    >
+                      Diabetes tipo 2 · Controle glicêmico com uso de insulina ·
+                      Acompanhamento com endocrinologista.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 pt-1">
+                      <span
+                        class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium bg-badge-yellow/10 text-badge-yellow"
+                      >
+                        <span class="material-symbols-outlined text-[14px]">
+                          warning
+                        </span>
+                        Risco moderado
+                      </span>
+                      <span
+                        class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium bg-primary/10 text-primary"
+                      >
+                        <span class="material-symbols-outlined text-[14px]">
+                          bloodtype
+                        </span>
+                        Glicemia · monitorar
+                      </span>
+                      <span
+                        class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                      >
+                        <span class="material-symbols-outlined text-[14px]">
+                          schedule
+                        </span>
+                        Próxima revisão: 05/04
+                      </span>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3 pt-2 text-xs sm:text-sm">
+                      <div
+                        class="flex items-center gap-1 text-slate-500 dark:text-slate-300"
+                      >
+                        <span class="material-symbols-outlined text-[16px]">
+                          contact_phone
+                        </span>
+                        <span>Irmão: (21) 98888-1111</span>
+                      </div>
+                      <div
+                        class="flex items-center gap-1 text-slate-500 dark:text-slate-300"
+                      >
+                        <span class="material-symbols-outlined text-[16px]">
+                          location_on
+                        </span>
+                        <span>Visitas domiciliares · 2x por semana</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="flex flex-row md:flex-col gap-2 md:gap-3 w-full md:w-auto md:items-end"
+                >
+                  <button
+                    type="button"
+                    class="flex-1 md:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-border-light dark:border-border-dark text-sm font-medium text-text-light-secondary dark:text-text-dark-secondary hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                  >
+                    <span class="material-symbols-outlined text-[18px]">
+                      edit
+                    </span>
+                    Editar
+                  </button>
+                  <button
+                    type="button"
+                    class="flex-1 md:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+                  >
+                    <span class="material-symbols-outlined text-[18px]">
+                      visibility
+                    </span>
+                    Ver perfil
+                  </button>
+                </div>
+              </div>
+
+              <!-- CARD 3 -->
+              <div
+                class="flex flex-col md:flex-row items-start md:items-center gap-4 bg-card-light dark:bg-card-dark px-5 py-4 rounded-lg shadow-sm border border-border-light dark:border-border-dark"
+              >
+                <div class="flex items-start gap-4 w-full">
+                  <div
+                    class="bg-center bg-no-repeat bg-cover rounded-full h-16 w-16 shrink-0 border border-border-light dark:border-border-dark"
+                    style="
+                      background-image: url('https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=160');
+                    "
+                  ></div>
+
+                  <div class="flex-1 min-w-0 space-y-1">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <p
+                        class="text-text-light-primary dark:text-text-dark-primary text-base md:text-lg font-semibold leading-snug truncate"
+                      >
+                        Ana Souza
+                      </p>
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                      >
+                        75 anos · Feminino
+                      </span>
+                    </div>
+
+                    <p
+                      class="text-text-light-secondary dark:text-text-dark-secondary text-sm leading-snug line-clamp-2"
+                    >
+                      Artrite reumatoide · Dores crônicas · Fisioterapia semanal
+                      e acompanhamento com reumatologista.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 pt-1">
+                      <span
+                        class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium bg-badge-yellow/10 text-badge-yellow"
+                      >
+                        <span class="material-symbols-outlined text-[14px]">
+                          orthopedic
+                        </span>
+                        Mobilidade reduzida
+                      </span>
+                      <span
+                        class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium bg-primary/10 text-primary"
+                      >
+                        <span class="material-symbols-outlined text-[14px]">
+                          fitness_center
+                        </span>
+                        Fisioterapia · 3x semana
+                      </span>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3 pt-2 text-xs sm:text-sm">
+                      <div
+                        class="flex items-center gap-1 text-slate-500 dark:text-slate-300"
+                      >
+                        <span class="material-symbols-outlined text-[16px]">
+                          contact_phone
+                        </span>
+                        <span>Sobrinho: (31) 97777-2222</span>
+                      </div>
+                      <div
+                        class="flex items-center gap-1 text-slate-500 dark:text-slate-300"
+                      >
+                        <span class="material-symbols-outlined text-[16px]">
+                          local_hospital
+                        </span>
+                        <span>Clínica Santa Helena · Sala 12</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="flex flex-row md:flex-col gap-2 md:gap-3 w-full md:w-auto md:items-end"
+                >
+                  <button
+                    type="button"
+                    class="flex-1 md:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-border-light dark:border-border-dark text-sm font-medium text-text-light-secondary dark:text-text-dark-secondary hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                  >
+                    <span class="material-symbols-outlined text-[18px]">
+                      edit
+                    </span>
+                    Editar
+                  </button>
+                  <button
+                    type="button"
+                    class="flex-1 md:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+                  >
+                    <span class="material-symbols-outlined text-[18px]">
+                      visibility
+                    </span>
+                    Ver perfil
+                  </button>
+                </div>
+              </div>
+
+              <!-- Exemplo de empty-state (opcional)
+              <div class="text-center border-2 border-dashed border-border-light dark:border-border-dark rounded-lg py-16 px-6">
+                <div class="mx-auto w-fit bg-primary/20 text-primary p-4 rounded-full mb-4">
+                  <span class="material-symbols-outlined">group</span>
+                </div>
+                <h3 class="text-lg font-semibold text-text-light-primary dark:text-text-dark-primary">
+                  Nenhum idoso cadastrado
+                </h3>
+                <p class="text-text-light-secondary dark:text-text-dark-secondary mt-1">
+                  Clique em &quot;Adicionar Novo Idoso&quot; para começar.
+                </p>
+              </div>
+              -->
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- SCRIPTS NA ORDEM CORRETA -->
+    <script src="/public/js/layout.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/public/js/api.js"></script>
+    <script src="/public/js/pacientes.js"></script>
+  </body>
+</html>

@@ -1,0 +1,189 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: #f5f7fa;
+}
+
+/* ------------------- CONTAINER ------------------- */
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* ------------------- CARD ------------------- */
+
+.card {
+  width: 100%;
+  max-width: 450px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 40px 30px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+/* ------------------- LOGO ------------------- */
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo img {
+  width: 45px;
+}
+
+.logo h2 {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* ------------------- TÍTULOS ------------------- */
+
+.title {
+  margin-top: 25px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+/* ------------------- FORM ------------------- */
+
+.form {
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+input {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 18px;
+  border: 1px solid #dcdcdc;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+/* ------------------- DUAS COLUNAS ------------------- */
+
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+.col {
+  flex: 1;
+}
+
+/* ------------------- SENHA COM ICONE ------------------- */
+
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  padding-right: 40px;
+}
+
+.password-field .toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+/* ------------------- BOTÃO ------------------- */
+
+.btn {
+  width: 100%;
+  padding: 13px;
+  background: #0ea5e9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.btn:hover {
+  background: #0284c7;
+}
+
+/* ------------------- LINK DE LOGIN ------------------- */
+
+.login-link {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 13px;
+}
+
+.login-link a {
+  color: #0ea5e9;
+  text-decoration: none;
+}
+
+/* ------------------- RESPONSIVIDADE ------------------- */
+
+@media (max-width: 600px) {
+  .card {
+    padding: 32px 22px;
+    max-width: 380px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  input {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 400px) {
+  .logo h2 {
+    font-size: 18px;
+  }
+
+  .title {
+    font-size: 19px;
+  }
+
+  .btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
