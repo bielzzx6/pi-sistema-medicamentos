@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil e Configurações</title>
+    <link rel="stylesheet" href="/public/css/perfil.css" />
+  </head>
+
+  <body>
+
+    <div class="layout">
+
+      <aside class="sidebar">
+        <div class="user-info">
+          <img src="https://i.pravatar.cc/80?img=40" class="avatar" id="profile-avatar" />
+          <h3 id="sidebar-name"></h3>
+          <span id="sidebar-email"></span>
+        </div>
+        <nav class="menu">
+          <a href="#" class="active">Meu Perfil</a>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <h1 class="page-title">Perfil e Configurações</h1>
+
+        <div class="profile-card">
+          <div class="left">
+            <img src="https://i.pravatar.cc/120?img=40" class="profile-photo" id="big-photo" />
+            <div class="info">
+              <h2 id="profile-name"></h2>
+              <span id="profile-email"></span>
+            </div>
+          </div>
+          <button class="change-photo">Alterar Foto</button>
+        </div>
+
+        <form class="form" id="profile-form">
+          <!-- form completo aqui -->
+        </form>
+
+      </main>
+    </div>
+
+    <!-- Scripts (ordem correta) -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/public/js/api.js"></script>
+    <script src="/public/js/auth.js"></script>
+    <script src="perfil.js"></script>
+
+  </body>
+</html>

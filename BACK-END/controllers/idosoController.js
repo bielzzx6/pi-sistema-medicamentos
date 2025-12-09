@@ -9,7 +9,7 @@ function tryParseJSON(value) {
   try {
     return JSON.parse(value);
   } catch (e) {
-    return value; // if not JSON, return original string
+    return value; // se não for JSON, retorna a string original
   }
 }
 
@@ -118,9 +118,7 @@ module.exports = {
   async buscar(req, res) {
     try {
       const idoso = await Idoso.findById(req.params.id);
-      if (!idoso) {
-        return res.status(404).json({ error: "Idoso não encontrado." });
-      }
+      if (!idoso) return res.status(404).json({ error: "Idoso não encontrado." });
       return res.json(idoso);
     } catch (err) {
       console.error("Erro buscar idoso:", err);

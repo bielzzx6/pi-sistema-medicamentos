@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerenciamento de Cuidadores</title>
+
+    <link rel="stylesheet" href="/public/css/global.css" />
+    <link rel="stylesheet" href="/public/css/cuidadores.css" />
+  </head>
+
+  <body>
+
+    <div class="sidebar">
+      <div class="user-box">
+        <img src="https://i.pravatar.cc/80" class="user-img" />
+        <div>
+          <strong id="sidebar-name"></strong>
+          <p id="sidebar-email"></p>
+          <a href="/pages/perfil/perfil.html">Acessar Perfil</a>
+        </div>
+      </div>
+
+      <ul class="menu">
+        <li><a href="/pages/painel/painel.html">Painel</a></li>
+        <li><a href="/pages/pacientes/pacientes.html">Pacientes</a></li>
+        <li><a href="/pages/medicamentos/medicamentos.html">Medicamentos</a></li>
+        <li class="active"><a href="#">Cuidadores</a></li>
+        <li><a href="/pages/relatorio/relatorio.html">Relatórios</a></li>
+      </ul>
+
+      <div class="config-box">⚙️ Configurações</div>
+    </div>
+
+    <div class="main">
+      <div class="topbar">
+        <h2>Cuidadores</h2>
+        <div class="flex gap-20">
+          <input type="text" class="search" placeholder="Pesquisar cuidador..." />
+          <img src="https://i.pravatar.cc/40" class="profile-img" />
+        </div>
+      </div>
+
+      <button class="btn">+ Adicionar Novo Cuidador</button>
+
+      <div class="card table-container">
+        <table>
+          <!-- tabela mantida -->
+        </table>
+      </div>
+
+      <div class="pagination">
+        <button class="page active">1</button>
+        <button class="page">2</button>
+        <span class="dots">…</span>
+        <button class="page">10</button>
+      </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/public/js/api.js"></script>
+    <script src="/public/js/auth.js"></script>
+    <script src="cuidadores.js"></script>
+
+  </body>
+</html>

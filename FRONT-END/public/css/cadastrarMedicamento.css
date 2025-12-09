@@ -57,4 +57,205 @@
 
 .btn-secondary:hover {
   background: #d4efff;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: #f5f7fa;
+}
+
+/* ------------------- CONTAINER ------------------- */
+
+.container {
+  width: 100%;
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 30px 20px 60px;
+}
+
+/* ------------------- HEADER ------------------- */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.header h1 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.back-btn {
+  background: #e9f5ff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* ------------------- CARDS ------------------- */
+
+.card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.05);
+  margin-bottom: 22px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+/* ------------------- FORM ELEMENTS ------------------- */
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 13px;
+  border-radius: 8px;
+  border: 1px solid #dcdcdc;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+textarea {
+  resize: none;
+  height: 90px;
+}
+
+/* ------------------- TAGS ------------------- */
+
+.tag-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.tag {
+  background: #e8f4ff;
+  border: 1px solid #bdddff;
+  color: #007acc;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.tag:hover {
+  background: #d9edff;
+}
+
+/* ------------------- ROWS ------------------- */
+
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.col {
+  flex: 1;
+}
+
+.unit {
+  font-size: 14px;
+  color: #666;
+  margin-left: -5px;
+}
+
+/* ------------------- TIME INPUT ------------------- */
+
+.time-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.period-btn {
+  padding: 11px 18px;
+  border-radius: 8px;
+  border: 1px solid #dcdcdc;
+  background: #f0f6fb;
+  cursor: pointer;
+}
+
+.add-time-btn {
+  margin-bottom: 20px;
+  background: #e9f5ff;
+  border: 1px solid #bdddff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ------------------- FOOTER BUTTONS ------------------- */
+
+.footer-btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.cancel {
+  background: transparent;
+  border: none;
+  color: #555;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.save {
+  background: #0ea5e9;
+  padding: 12px 20px;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ------------------- RESPONSIVIDADE ------------------- */
+
+@media (max-width: 600px) {
+  .card {
+    padding: 20px;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .save {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .footer-btns {
+    flex-direction: column;
+    align-items: center;
+  }
 }

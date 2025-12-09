@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerenciamento de Perfis</title>
+
+    <link rel="stylesheet" href="/public/css/global.css" />
+    <link rel="stylesheet" href="/public/css/pacientes.css" />
+  </head>
+
+  <body>
+
+    <!-- SIDEBAR (igual ao painel) -->
+    <div class="sidebar">
+      <div class="user-box">
+        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" class="user-img" />
+        <div>
+          <strong id="sidebar-name"></strong>
+          <p id="sidebar-email"></p>
+          <a href="/pages/perfil/perfil.html">Acessar Perfil</a>
+        </div>
+      </div>
+
+      <ul class="menu">
+        <li><a href="/pages/painel/painel.html">Painel</a></li>
+        <li class="active">Pacientes</li>
+        <li><a href="../cadastrarMedicamento/cadastrarMedicamento.html">Medicamentos</a></li>
+        <li><a href="../cuidadores/cuidadores.html">Cuidadores</a></li>
+        <li><a href="../relatorio/relatorio.html">Relatórios</a></li>
+      </ul>
+
+      <div class="config-box">⚙️ Configurações</div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+      <header class="topbar">
+        <h2>Gerenciamento de Perfis</h2>
+        <input type="text" placeholder="Encontrar paciente..." class="search" />
+        <div class="icons">
+          🔔
+          <img src="https://i.pravatar.cc/40" class="profile-img" />
+        </div>
+      </header>
+
+      <div class="container">
+        <div class="title-area">
+          <h1>Gerenciamento de Perfis</h1>
+          <p>Adicione, visualize e edite os perfis dos idosos sob seus cuidados.</p>
+        </div>
+
+        <div class="add-area">
+          <button class="add-btn">+ Adicionar Novo Idoso</button>
+        </div>
+
+        <!-- LISTA (mock) -->
+        <div class="list">
+          <!-- ... (mantido como no seu código) ... -->
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPTS NA ORDEM CORRETA -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/public/js/api.js"></script>
+    <script src="/public/js/auth.js"></script>
+    <script src="pacientes.js"></script>
+
+  </body>
+</html>

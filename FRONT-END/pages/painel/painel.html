@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel de Controle</title>
+
+    <link rel="stylesheet" href="../../public/css/global.css" />
+    <link rel="stylesheet" href="../../public/css/painel.css" />
+  </head>
+
+  <body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="user-box">
+        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" class="user-img" />
+        <div>
+          <strong id="sidebar-name"></strong>
+          <p id="sidebar-email"></p>
+          <a href="../perfil/perfil.html">Acessar Perfil</a>
+        </div>
+      </div>
+
+      <ul class="menu">
+        <li class="active">Painel</li>
+        <li><a href="../pacientes/pacientes.html">Pacientes</a></li>
+        <li><a href="../cadastrarMedicamento/cadastrarMedicamento.html">Medicamentos</a></li>
+        <li><a href="../cuidadores/cuidadores.html">Cuidadores</a></li>
+        <li><a href="../relatorio/relatorio.html">Relatórios</a></li>
+      </ul>
+
+      <div class="config-box">⚙️ Configurações</div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+      <header class="topbar">
+        <h2>Painel de Controle</h2>
+        <input type="text" placeholder="Encontrar paciente..." class="search" />
+        <a class="botao-cadastar-idoso" href="../cadastroIdoso/cadastroIdoso.html">Cadastrar Idoso</a>
+        <div class="icons">🔔 👤</div>
+      </header>
+
+      <!-- GRID DOS CARDS DINÂMICOS -->
+      <div class="cards"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../../public/js/api.js"></script>
+    <script src="../../public/js/auth.js"></script>
+    <script src="../../public/js/painel.js"></script>
+
+  </body>
+</html>

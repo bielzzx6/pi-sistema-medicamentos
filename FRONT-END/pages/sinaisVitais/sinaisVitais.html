@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro de Sinais Vitais</title>
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../../css/global.css" />
+
+    <!-- CSS específico da página -->
+    <link rel="stylesheet" href="../../css/sinaisVitais.css" />
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../../public/js/api.js"></script>
+    <script src="../../public/js/auth.js"></script>
+    <div class="page">
+      <!-- SIDEBAR (mesmo padrão das outras telas) -->
+      <aside class="sidebar">
+        <div class="user-profile">
+          <img src="https://i.pravatar.cc/80" class="avatar" />
+          <div>
+            <strong>Maria Silva</strong>
+            <p>Cuidadora</p>
+          </div>
+        </div>
+
+        <ul class="menu">
+          <li><a href="../painel/painel.html">Painel</a></li>
+        </ul>
+
+        <div class="config-box">⚙️ Configurações</div>
+      </aside>
+
+      <!-- CONTEÚDO -->
+      <main class="content">
+        <h1 class="page-title">Registro de Sinais Vitais</h1>
+        <p class="page-subtitle">
+          Adicione as medições mais recentes para manter o histórico atualizado.
+        </p>
+
+
+          <!-- HISTÓRICO -->
+          <div class="card history-card">
+            <h2 class="section-title">Histórico de Registros</h2>
+
+            <div class="history-list">
+              <!-- ITEM 1 -->
+              <div class="history-item">
+                <div class="history-header">
+                  <strong>26 de Outubro, 2023</strong>
+                  <span>18:15</span>
+                </div>
+
+                <div class="history-values">
+                  <p>🩺 120/80 mmHg</p>
+                  <p>❤️ 72 bpm</p>
+                  <p>🌡️ 36.7°C</p>
+                  <p>🫁 98%</p>
+                  <p>⚖ 70.2 kg</p>
+                </div>
+
+                <div class="history-note">Em jejum.</div>
+              </div>
+
+              <!-- ITEM 2 -->
+              <div class="history-item">
+                <div class="history-header">
+                  <strong>26 de Outubro, 2023</strong>
+                  <span>08:20</span>
+                </div>
+
+                <div class="history-values">
+                  <p>🩺 118/79 mmHg</p>
+                  <p>❤️ 71 bpm</p>
+                  <p>🌡️ 36.6°C</p>
+                  <p>🫁 97%</p>
+                  <p>⚖ 70.0 kg</p>
+                </div>
+
+                <div class="history-note">Após caminhada.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

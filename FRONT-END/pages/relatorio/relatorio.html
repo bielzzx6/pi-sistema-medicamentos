@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Relatórios e Históricos</title>
+
+    <!-- GLOBAL CSS -->
+    <link rel="stylesheet" href="../../public/css/global.css">
+
+    <!-- CSS ESPECÍFICO -->
+    <link rel="stylesheet" href="../../public/css/relatorio.css" />
+  </head>
+
+  <body>
+    <!-- Proteção de rota -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../../public/js/api.js"></script>
+    <script src="../../public/js/auth.js"></script>
+
+    <!-- SIDEBAR GLOBAL -->
+    <aside class="sidebar">
+      <div class="user-box">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+          class="user-img"
+        />
+        <div>
+          <strong>Admin User</strong>
+          <p>admin@health.com</p>
+          <a href="../perfil/perfil.html">Acessar Perfil</a>
+        </div>
+      </div>
+
+      <ul class="menu">
+        <li><a href="../painel/painel.html">Painel</a></li>
+        <li><a href="../pacientes/pacientes.html">Pacientes</a></li>
+        <li>
+          <a href="../cadastrarMedicamento/cadastrarMedicamento.html"
+            >Medicamentos</a
+          >
+        </li>
+        <li><a href="../cuidadores/cuidadores.html">Cuidadores</a></li>
+        <li class="active">Relatórios</li>
+      </ul>
+
+      <div class="config-box">⚙️ Configurações</div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+      <div class="topbar">
+        <h2>Relatórios e Históricos</h2>
+        <input class="search" placeholder="Pesquisar..." />
+        <div class="icons">
+          🔔
+          <img src="https://i.pravatar.cc/40" class="profile-img" />
+        </div>
+      </div>
+
+      <!-- CONTEÚDO -->
+      <h1 class="page-title">Relatórios e Históricos</h1>
+      <p class="page-description">Gere e visualize relatórios detalhados.</p>
+
+      <div class="reports-grid">
+        <!-- FILTROS -->
+        <div class="card filters">
+          <h3>Filtros</h3>
+
+          <label class="label">Selecionar Idoso</label>
+          <select class="input">
+            <option>Todos os idosos</option>
+            as
+            <option>Maria Silva</option>
+            <option>João Almeida</option>
+            <option>Ana Souza</option>
+          </select>
+
+          <label class="label">Período</label>
+          <div class="filter-group">
+            <button class="filter-btn active">Últimos 7 dias</button>
+            <button class="filter-btn">Último mês</button>
+            <button class="filter-btn">Últimos 3 meses</button>
+            <button class="filter-btn">Personalizado</button>
+          </div>
+        </div>
+
+        <!-- LISTA DE RELATÓRIOS -->
+        <div class="reports-list">
+          <div class="card report-item">
+            <div class="left">
+              <div class="icon-box">💊</div>
+              <div>
+                <h4>Medicamentos</h4>
+                <p>Listagem completa dos medicamentos em uso.</p>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-outline">Visualizar</button>
+              <button class="btn">Exportar PDF</button>
+            </div>
+          </div>
+
+          <div class="card report-item">
+            <div class="left">
+              <div class="icon-box">📅</div>
+              <div>
+                <h4>Administração e Aderência</h4>
+                <p>Horários, adesão e rotinas de medicação.</p>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-outline">Visualizar</button>
+              <button class="btn">Exportar PDF</button>
+            </div>
+          </div>
+
+          <div class="card report-item">
+            <div class="left">
+              <div class="icon-box">🫁</div>
+              <div>
+                <h4>Sinais Vitais</h4>
+                <p>Pressão, glicemia, batimentos e temperatura.</p>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-outline">Visualizar</button>
+              <button class="btn">Exportar PDF</button>
+            </div>
+          </div>
+
+          <div class="card report-item">
+            <div class="left">
+              <div class="icon-box">🧬</div>
+              <div>
+                <h4>Doenças e Histórico Clínico</h4>
+                <p>Condições, alergias e registros médicos.</p>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-outline">Visualizar</button>
+              <button class="btn">Exportar PDF</button>
+            </div>
+          </div>
+
+          <div class="card report-item">
+            <div class="left">
+              <div class="icon-box">⚠️</div>
+              <div>
+                <h4>Eventos Adversos</h4>
+                <p>Quedas, reações e incidentes.</p>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-outline">Visualizar</button>
+              <button class="btn">Exportar PDF</button>
+            </div>
+          </div>
+
+          <div class="card report-item">
+            <div class="left">
+              <div class="icon-box">🩻</div>
+              <div>
+                <h4>Consultas e Exames</h4>
+                <p>Resultados médicos e acompanhamentos.</p>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-outline">Visualizar</button>
+              <button class="btn">Exportar PDF</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Perfil do Idoso</title>
+  <link rel="stylesheet" href="/FRONT-END/public/css/global.css" />
+  <link rel="stylesheet" href="/FRONT-END/public/css/idoso.css" />
+</head>
+<body>
+  <!-- scripts carregados no final -->
+  <div class="layout">
+    <aside class="sidebar">
+      <!-- copia sidebar do painel - mantém ids para preencher -->
+      <div class="user-box">
+        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" class="user-img" />
+        <div>
+          <strong id="sidebar-name"></strong>
+          <p id="sidebar-email"></p>
+          <a href="/pages/perfil/perfil.html">Acessar Perfil</a>
+        </div>
+      </div>
+      <ul class="menu">
+        <li><a href="/pages/painel/painel.html">Painel</a></li>
+        <li><a href="/pages/pacientes/pacientes.html">Pacientes</a></li>
+      </ul>
+    </aside>
+
+    <main class="main">
+      <div class="topbar"><h2 id="idoso-title">Carregando...</h2></div>
+
+      <div class="card idoso-card">
+        <div class="left">
+          <img id="idoso-photo" src="https://i.pravatar.cc/120" class="profile-photo" />
+          <div class="info">
+            <h2 id="idoso-nome"></h2>
+            <span id="idoso-age"></span>
+            <p id="idoso-info"></p>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a id="editar-link" class="btn" href="#">Editar</a>
+          <button id="excluir-btn" class="btn btn-danger">Excluir</button>
+        </div>
+      </div>
+
+      <section class="card">
+        <h3>Contatos</h3>
+        <ul id="idoso-contatos"></ul>
+      </section>
+
+      <section class="card">
+        <h3>Doenças & Condições</h3>
+        <div id="idoso-doencas"></div>
+      </section>
+
+      <section class="card">
+        <h3>Medicamentos</h3>
+        <div id="idoso-medicamentos"></div>
+      </section>
+
+      <section class="card">
+        <h3>Sinais Vitais</h3>
+        <div id="idoso-sinais"></div>
+
+        <h4>Adicionar novo registro rápido</h4>
+        <form id="sinal-form">
+          <div class="row">
+            <input name="pressao_sistolica" placeholder="Sistólica" type="number" />
+            <input name="pressao_diastolica" placeholder="Diastólica" type="number" />
+            <input name="batimentos" placeholder="BPM" type="number" />
+            <input name="temperatura" placeholder="°C" type="number" step="0.1" />
+          </div>
+          <textarea name="observacoes" placeholder="Observações"></textarea>
+          <button type="submit" class="btn">Salvar Registro</button>
+        </form>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="/FRONT-END/public/js/api.js"></script>
+  <script src="/FRONT-END/public/js/auth.js"></script>
+  <script src="/FRONT-END/public/js/idoso.js"></script>
+</body>
+</html>
