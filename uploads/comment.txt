@@ -1,0 +1,1 @@
+A pasta upload fica fora da pasta frontend e backend para evitar poluição visual e de arquivos.

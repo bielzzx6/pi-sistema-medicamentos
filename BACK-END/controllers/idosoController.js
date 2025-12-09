@@ -19,6 +19,91 @@ function toDate(value) {
   return isNaN(d) ? null : d;
 }
 
+/**
+ * Normalize a field that can arrive as:
+ * - JSON string: "[{...},{...}]"
+ * - JSON string: "{...}"
+ * - already parsed array or object
+ * - undefined / empty
+ */
+function normalizeArrayField(raw, keys) {
+  for (const key of keys) {
+    if (raw[key] === undefined) continue;
+
+    const parsed = tryParseJSON(raw[key]);
+
+    if (Array.isArray(parsed)) return parsed;
+
+    if (parsed && typeof parsed === "object") {
+      // single object -> wrap in array
+      return [parsed];
+    }
+
+    // if it is a non-empty string, but not valid JSON, skip to next key
+  }
+  return [];
+}
+
+/**
+ * Build payload object from raw body and optional file.
+ * Used by both "criar" and "atualizar" to keep behavior consistent.
+ */
+function buildIdosoPayload(raw, file, isUpdate = false) {
+  const contatos = normalizeArrayField(raw, ["contatos", "contato"]);
+  const doencas = normalizeArrayField(raw, ["doencas"]);
+  const medicamentos = normalizeArrayField(raw, ["medicamentos"]);
+  const cuidadores = normalizeArrayField(raw, ["cuidadores"]);
+  const sinais_vitais = normalizeArrayField(raw, ["sinais_vitais"]);
+
+  const payload = {};
+
+  // Basic fields
+  if (!isUpdate || raw.nome !== undefined) {
+    payload.nome = raw.nome !== undefined ? String(raw.nome).trim() : "";
+  }
+
+  if (!isUpdate || raw.data_nasc !== undefined) {
+    payload.data_nasc =
+      raw.data_nasc !== undefined ? toDate(raw.data_nasc) : null;
+  }
+
+  if (!isUpdate || raw.telefone !== undefined) {
+    payload.telefone = raw.telefone || "";
+  }
+
+  if (!isUpdate || raw.informacoes !== undefined) {
+    payload.informacoes = raw.informacoes || "";
+  }
+
+  // Arrays – if front sent the field, we always override
+  if (!isUpdate || raw.contatos !== undefined || raw.contato !== undefined) {
+    payload.contatos = Array.isArray(contatos) ? contatos : [];
+  }
+
+  if (!isUpdate || raw.doencas !== undefined) {
+    payload.doencas = Array.isArray(doencas) ? doencas : [];
+  }
+
+  if (!isUpdate || raw.medicamentos !== undefined) {
+    payload.medicamentos = Array.isArray(medicamentos) ? medicamentos : [];
+  }
+
+  if (!isUpdate || raw.cuidadores !== undefined) {
+    payload.cuidadores = Array.isArray(cuidadores) ? cuidadores : [];
+  }
+
+  if (!isUpdate || raw.sinais_vitais !== undefined) {
+    payload.sinais_vitais = Array.isArray(sinais_vitais) ? sinais_vitais : [];
+  }
+
+  // Photo
+  if (file) {
+    payload.foto = `/uploads/images/${file.filename}`;
+  }
+
+  return payload;
+}
+
 module.exports = {
   async listar(req, res) {
     try {
@@ -43,36 +128,11 @@ module.exports = {
 
   async criar(req, res) {
     try {
-      // Se multipart/form-data via multer: req.body contém strings (arrays JSON em string)
-      // Se application/json: req.body já é objeto/arrays
       const raw = req.body || {};
 
-      // parse campos que podem vir como JSON-string
-      const contatos = tryParseJSON(raw.contatos) || tryParseJSON(raw.contato) || [];
-      const doencas = tryParseJSON(raw.doencas) || tryParseJSON(raw.doencas) || [];
-      const medicamentos = tryParseJSON(raw.medicamentos) || [];
-      const cuidadores = tryParseJSON(raw.cuidadores) || [];
-      const sinais_vitais = tryParseJSON(raw.sinais_vitais) || [];
+      const payload = buildIdosoPayload(raw, req.file, false);
 
-      // montar objeto final
-      const payload = {
-        nome: raw.nome || raw.nome === "" ? String(raw.nome).trim() : "",
-        data_nasc: toDate(raw.data_nasc),
-        telefone: raw.telefone || "",
-        informacoes: raw.informacoes || "",
-        contatos: Array.isArray(contatos) ? contatos : [],
-        doencas: Array.isArray(doencas) ? doencas : [],
-        medicamentos: Array.isArray(medicamentos) ? medicamentos : [],
-        cuidadores: Array.isArray(cuidadores) ? cuidadores : [],
-        sinais_vitais: Array.isArray(sinais_vitais) ? sinais_vitais : [],
-      };
-
-      // foto (se enviada via multer)
-      if (req.file) {
-        payload.foto = `/uploads/idosos/${req.file.filename}`;
-      }
-
-      // validação mínima
+      // minimal validation
       if (!payload.nome) {
         return res.status(400).json({ error: "Nome é obrigatório." });
       }
@@ -89,34 +149,24 @@ module.exports = {
     try {
       const raw = req.body || {};
 
-      const contatos = tryParseJSON(raw.contatos) || tryParseJSON(raw.contato) || [];
-      const doencas = tryParseJSON(raw.doencas) || [];
-      const medicamentos = tryParseJSON(raw.medicamentos) || [];
-      const cuidadores = tryParseJSON(raw.cuidadores) || [];
-      const sinais_vitais = tryParseJSON(raw.sinais_vitais) || [];
+      // useful to debug what is arriving from front-end
+      // console.log("RAW BODY:", raw);
+      // console.log("RAW doencas:", raw.doencas);
 
-      const payload = {};
+      const payload = buildIdosoPayload(raw, req.file, true);
 
-      if (raw.nome !== undefined) payload.nome = String(raw.nome).trim();
-      if (raw.data_nasc !== undefined) payload.data_nasc = toDate(raw.data_nasc);
-      if (raw.telefone !== undefined) payload.telefone = raw.telefone;
-      if (raw.informacoes !== undefined) payload.informacoes = raw.informacoes;
-
-      if (Array.isArray(contatos)) payload.contatos = contatos;
-      if (Array.isArray(doencas)) payload.doencas = doencas;
-      if (Array.isArray(medicamentos)) payload.medicamentos = medicamentos;
-      if (Array.isArray(cuidadores)) payload.cuidadores = cuidadores;
-      if (Array.isArray(sinais_vitais)) payload.sinais_vitais = sinais_vitais;
-
-      // foto
-      if (req.file) {
-        payload.foto = `/uploads/idosos/${req.file.filename}`;
+      // Only send update if we have at least one key
+      if (Object.keys(payload).length === 0) {
+        return res.status(400).json({ error: "Nada para atualizar." });
       }
 
-      // Atualiza e retorna o novo documento
-      const atualizado = await Idoso.findByIdAndUpdate(req.params.id, payload, { new: true });
+      const atualizado = await Idoso.findByIdAndUpdate(req.params.id, payload, {
+        new: true,
+      });
 
-      if (!atualizado) return res.status(404).json({ error: "Idoso não encontrado." });
+      if (!atualizado) {
+        return res.status(404).json({ error: "Idoso não encontrado." });
+      }
 
       return res.json(atualizado);
     } catch (err) {
@@ -127,16 +177,18 @@ module.exports = {
 
   async deletar(req, res) {
     try {
-      const id = req.params.id;
-      const idoso = await Idoso.findByIdAndDelete(id);
-      if (!idoso) return res.status(404).json({ error: "Idoso não encontrado." });
+      const idoso = await Idoso.findByIdAndDelete(req.params.id);
+      if (!idoso) {
+        return res.status(404).json({ error: "Idoso não encontrado." });
+      }
 
-      // opcional: remover foto do disco
+      // optional: remove photo from disk
       if (idoso.foto) {
         const filePath = path.join(__dirname, "..", idoso.foto);
         fs.unlink(filePath, (err) => {
-          // não bloquear a resposta por erro ao deletar arquivo
-          if (err) console.warn("Erro ao remover foto do disco:", err.message);
+          if (err) {
+            console.warn("Erro ao remover foto do disco:", err.message);
+          }
         });
       }
 

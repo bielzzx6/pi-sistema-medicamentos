@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Perfil Detalhado do Idoso - SeniorCare</title>
+    <link rel="icon" type="image/png" href="/public/logo.png" />
+    <!-- Tailwind + Fonts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#13b6ec",
+              "background-light": "#f8fbfc",
+              "background-dark": "#101d22",
+            },
+            fontFamily: {
+              display: ["Manrope", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "0.75rem",
+              xl: "1rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+      .material-symbols-outlined.fill {
+        font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+    </style>
+  </head>
+  <body class="bg-background-light dark:bg-background-dark font-display">
+    <!-- Layout global (sidebar + topnav) -->
+    <div id="app"></div>
+
+    <div class="py-32 pl-72 pr-8">
+      <div class="flex flex-wrap justify-between gap-3 items-center">
+        <p
+          id="idoso-page-title"
+          class="text-[#0d181b] dark:text-white text-3xl font-black leading-tight tracking-[-0.033em] min-w-72"
+        >
+          Perfil do Paciente
+        </p>
+        <a
+          id="editar-link"
+          href="#"
+          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary/20 text-primary dark:bg-primary/30 dark:text-white text-sm font-bold leading-normal tracking-[0.015em] gap-2"
+        >
+          <span class="material-symbols-outlined text-lg">edit</span>
+          <span class="truncate">Editar Perfil</span>
+        </a>
+      </div>
+
+      <!-- Card com resumo do idoso -->
+      <div
+        class="mt-8 flex w-full flex-col gap-4 @[520px]:flex-row @[520px]:justify-between @[520px]:items-center bg-white dark:bg-[#18262b] p-6 rounded-xl border border-slate-200/80 dark:border-slate-800/80"
+      >
+        <div class="flex gap-6 items-center">
+          <div
+            id="idoso-avatar"
+            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-28 w-28"
+            data-alt="Foto da paciente"
+          ></div>
+          <div class="flex flex-col justify-center gap-1">
+            <p
+              id="idoso-nome"
+              class="text-[#0d181b] dark:text-white text-2xl font-bold leading-tight tracking-[-0.015em]"
+            >
+              Nome do Paciente
+            </p>
+            <p
+              id="idoso-nascimento"
+              class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal"
+            >
+              Nascimento:
+            </p>
+          </div>
+        </div>
+        <div
+          id="idoso-status-cuidados"
+          class="flex min-w-[84px] cursor-default items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 text-sm font-bold leading-normal tracking-[0.015em] w-full max-w-[480px] @[480px]:w-auto"
+        >
+          Cuidados Ativos
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="mt-8">
+        <div
+          class="flex border-b border-slate-200 dark:border-slate-800 px-4 gap-8"
+        >
+          <!-- Tab: Informações Gerais (DEFAULT ATIVA) -->
+          <button
+            type="button"
+            data-tab="gerais"
+            class="tab-link flex items-center justify-center border-b-[3px] border-b-primary text-[#0d181b] dark:text-white gap-2.5 pb-[7px] pt-2.5"
+          >
+            <span
+              class="material-symbols-outlined fill"
+              style="font-size: 20px"
+            >
+              info
+            </span>
+            <p class="text-sm font-bold leading-normal tracking-[0.015em]">
+              Informações Gerais
+            </p>
+          </button>
+
+          <!-- Tab: Sinais Vitais -->
+          <button
+            type="button"
+            data-tab="sinais"
+            class="tab-link flex items-center justify-center border-b-[3px] border-b-transparent text-gray-500 dark:text-gray-400 gap-2.5 pb-[7px] pt-2.5"
+          >
+            <span class="material-symbols-outlined" style="font-size: 20px">
+              monitor_heart
+            </span>
+            <p class="text-sm font-bold leading-normal tracking-[0.015em]">
+              Sinais Vitais
+            </p>
+          </button>
+
+          <!-- Tab: Medicamentos -->
+          <button
+            type="button"
+            data-tab="medicamentos"
+            class="tab-link flex items-center justify-center border-b-[3px] border-b-transparent text-gray-500 dark:text-gray-400 gap-2.5 pb-[7px] pt-2.5"
+          >
+            <span class="material-symbols-outlined" style="font-size: 20px">
+              medication
+            </span>
+            <p class="text-sm font-bold leading-normal tracking-[0.015em]">
+              Medicamentos
+            </p>
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB PANELS -->
+      <div class="mt-8">
+        <!-- Painel: Informações Gerais -->
+        <section
+          id="tab-gerais"
+          data-tab-panel="gerais"
+          class="tab-panel block"
+        >
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-1 flex flex-col gap-6">
+              <div
+                class="bg-white dark:bg-[#18262b] p-6 rounded-xl border border-slate-200/80 dark:border-slate-800/80"
+              >
+                <h3
+                  class="text-lg font-bold text-[#0d181b] dark:text-white mb-4"
+                >
+                  Dados Gerais
+                </h3>
+                <div class="space-y-4">
+                  <div>
+                    <p
+                      class="text-xs font-medium text-gray-500 dark:text-gray-400"
+                    >
+                      Nome
+                    </p>
+                    <p
+                      id="dados-nome"
+                      class="text-[#0d181b] dark:text-gray-100"
+                    >
+                      -
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs font-medium text-gray-500 dark:text-gray-400"
+                    >
+                      Nascimento
+                    </p>
+                    <p
+                      id="dados-nascimento"
+                      class="text-[#0d181b] dark:text-gray-100"
+                    >
+                      -
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-xs font-medium text-gray-500 dark:text-gray-400"
+                    >
+                      Contato de Emergência
+                    </p>
+                    <p
+                      id="dados-contato"
+                      class="text-[#0d181b] dark:text-gray-100"
+                    >
+                      -
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-2 flex flex-col gap-6">
+              <div
+                class="bg-white dark:bg-[#18262b] p-6 rounded-xl border border-slate-200/80 dark:border-slate-800/80"
+              >
+                <div class="flex justify-between items-center mb-4">
+                  <h3 class="text-lg font-bold text-[#0d181b] dark:text-white">
+                    Doenças e Condições Clínicas
+                  </h3>
+                </div>
+                <div id="idoso-doencas" class="space-y-4"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Painel: Sinais Vitais (carrega sinaisvitais.html) -->
+        <section
+          id="tab-sinais"
+          data-tab-panel="sinais"
+          class="tab-panel hidden"
+        >
+          <div
+            class="bg-white dark:bg-[#18262b] p-4 rounded-xl border border-slate-200/80 dark:border-slate-800/80"
+          >
+            <!-- Ajuste o src abaixo para o caminho real do seu sinaisvitais.html -->
+            <iframe
+              src="/pages/sinaisvitais.html"
+              class="w-full min-h-[1000px] border-0 rounded-lg"
+            ></iframe>
+          </div>
+        </section>
+
+        <!-- Painel: Medicamentos (Registro da Administração de Medicamentos) -->
+        <section
+          id="tab-medicamentos"
+          data-tab-panel="medicamentos"
+          class="tab-panel hidden"
+        >
+          <div class="p-4 rounded-xl">
+            <!-- Ajuste o src abaixo para o caminho real do seu medicamentos.html
+                 (tela "Registro da Administração de Medicamentos") -->
+            <iframe
+              src="/pages/medicamentos.html"
+              class="w-full min-h-[1600px] border-0 rounded-lg"
+            ></iframe>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="/public/js/layout.js"></script>
+    <script src="/public/js/idoso.js"></script>
+    <script src="/public/js/auth.js"></script>
+
+    <!-- Script simples para tabs funcionais -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const tabLinks = document.querySelectorAll(".tab-link");
+        const tabPanels = document.querySelectorAll("[data-tab-panel]");
+
+        function activateTab(tabName) {
+          tabLinks.forEach((btn) => {
+            const isActive = btn.dataset.tab === tabName;
+            btn.classList.toggle("border-b-primary", isActive);
+            btn.classList.toggle("border-b-transparent", !isActive);
+            btn.classList.toggle("text-[#0d181b]", isActive);
+            btn.classList.toggle("dark:text-white", isActive);
+            btn.classList.toggle("text-gray-500", !isActive);
+            btn.classList.toggle("dark:text-gray-400", !isActive);
+
+            const icon = btn.querySelector(".material-symbols-outlined");
+            if (icon) {
+              if (isActive) {
+                icon.classList.add("fill");
+              } else {
+                icon.classList.remove("fill");
+              }
+            }
+          });
+
+          tabPanels.forEach((panel) => {
+            panel.classList.toggle(
+              "hidden",
+              panel.dataset.tabPanel !== tabName
+            );
+            panel.classList.toggle("block", panel.dataset.tabPanel === tabName);
+          });
+        }
+
+        tabLinks.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const tabName = btn.dataset.tab;
+            if (tabName) activateTab(tabName);
+          });
+        });
+
+        // Tab padrão
+        activateTab("gerais");
+      });
+    </script>
+  </body>
+</html>

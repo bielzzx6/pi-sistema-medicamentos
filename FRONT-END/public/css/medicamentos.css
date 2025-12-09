@@ -1,0 +1,57 @@
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 22px;
+  margin-top: 25px;
+}
+
+.med-card {
+  background: #fff;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: transform 0.15s ease;
+}
+
+.med-card:hover {
+  transform: translateY(-3px);
+}
+
+.med-img {
+  width: 85px;
+  height: 85px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  background: #eef2f7;
+}
+
+.med-name {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.med-class {
+  background: #e0f2fe;
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.med-info {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.btn-details {
+  background: #0ea5e9;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: inline-block;
+}

@@ -1,103 +1,238 @@
-// painel.js
+// public/js/painel.js
 document.addEventListener("DOMContentLoaded", () => {
-  const cardsContainer = document.querySelector(".cards");
-  const sidebarName = document.getElementById("sidebar-name");
-  const sidebarEmail = document.getElementById("sidebar-email");
+  const cardsContainer = document.getElementById("cards");
+  const loadingEl = document.getElementById("idosos-loading");
+  const emptyEl = document.getElementById("idosos-empty");
+  const searchInput = document.getElementById("search-input");
 
-  // ==================================================
-  // 1. Exibe dados do admin logado
-  // ==================================================
-  const adminStr = localStorage.getItem("admin");
-  if (adminStr) {
-    try {
-      const admin = JSON.parse(adminStr);
-      sidebarName.textContent = admin.nome;
-      sidebarEmail.textContent = admin.email;
-    } catch (_) {}
+  let allIdosos = [];
+
+  async function fetchJson(url, options = {}) {
+    const res = await fetch(url, options);
+    const contentType = res.headers.get("Content-Type") || "";
+    let data = null;
+
+    if (contentType.includes("application/json")) {
+      data = await res.json().catch(() => null);
+    }
+
+    if (!res.ok) {
+      const msg =
+        (data && data.error) ||
+        data?.message ||
+        `Erro na requisição (${res.status})`;
+      throw new Error(msg);
+    }
+
+    return data;
   }
 
-  // ==================================================
-  // 2. Constrói URL da imagem
-  // ==================================================
-  function getPhotoUrl(foto) {
-    if (!foto) return "https://i.pravatar.cc/100"; // fallback
-    return `${window.location.origin}${foto}`;
+  function getPhotoUrl(path) {
+    if (path) return window.location.origin + path;
+    return "https://i.pravatar.cc/120?img=65";
+  }
+
+  function calcAge(dob) {
+    if (!dob) return "";
+    const diff = Date.now() - new Date(dob).getTime();
+    const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+    return `${age} anos`;
   }
 
   function escapeHtml(str) {
-    return String(str || "").replace(/[&<>"']/g, (m) => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;",
-    }[m]));
+    return String(str || "").replace(
+      /[&<>"']/g,
+      (m) =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        }[m])
+    );
   }
 
-  // ==================================================
-  // 3. Carrega os idosos mais recentes
-  // ==================================================
-  async function loadLatestIdosos() {
-    try {
-      const res = await axios.get("/api/idosos");
-      const idosos = res.data;
+  function renderIdosos(list) {
+    cardsContainer.innerHTML = "";
 
-      if (!Array.isArray(idosos)) return;
+    if (!list || list.length === 0) {
+      emptyEl.classList.remove("hidden");
+      return;
+    }
 
-      // Ordena por data de criação (decrescente)
-      const sorted = idosos.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    emptyEl.classList.add("hidden");
 
-      // Pega os 4 mais novos
-      const latest = sorted.slice(0, 4);
+    list.forEach((i) => {
+      const id = i._id || i.id;
+      const foto = getPhotoUrl(i.foto);
+      const idade = calcAge(i.data_nasc);
 
-      cardsContainer.innerHTML = "";
+      const meds = Array.isArray(i.medicamentos) ? i.medicamentos : [];
+      const sinais = Array.isArray(i.sinais_vitais) ? i.sinais_vitais : [];
 
-      latest.forEach((i) => {
-        const medicamento = i.medicamentos?.[0];
-        const proximaAcao = medicamento
-          ? `${escapeHtml(medicamento.nome)} às ${medicamento.horario || ""}`
-          : "Nenhuma ação";
+      const principalMed =
+        meds.find((m) => m.ativo !== false) || meds[0] || null;
+      const proximaAcaoNome = principalMed?.nome || "Sem medicações ativas";
+      const proximaAcaoDose = principalMed?.dose || "";
+      const proximaAcaoHorario = principalMed?.horario || "--:--";
 
-        const eventos = i.informacoes?.trim() || "Nenhuma alteração";
+      const ultimoSinal = sinais[sinais.length - 1];
+      let eventosRecentesTexto = "Nenhum evento recente.";
+      if (ultimoSinal) {
+        if (ultimoSinal.observacoes) {
+          eventosRecentesTexto = ultimoSinal.observacoes;
+        } else if (
+          ultimoSinal.pressao_sistolica &&
+          ultimoSinal.pressao_diastolica
+        ) {
+          eventosRecentesTexto = `PA ${ultimoSinal.pressao_sistolica}/${ultimoSinal.pressao_diastolica}`;
+        }
+      }
 
-        const card = document.createElement("div");
-        card.className = "patient-card";
+      const estoqueBaixoCount = meds.filter((m) => m.estoque_baixo).length || 0;
+      const doseAtrasadaCount = 0;
 
-        card.innerHTML = `
-          <img src="${getPhotoUrl(i.foto)}" class="photo" />
+      const estoqueBadge =
+        estoqueBaixoCount > 0
+          ? `<span class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-orange-500 text-white text-xs font-bold">${estoqueBaixoCount}</span>`
+          : "";
+      const doseBadge =
+        doseAtrasadaCount > 0
+          ? `<span class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold">${doseAtrasadaCount}</span>`
+          : "";
 
-          <h3>${escapeHtml(i.nome)}</h3>
+      const href = `/pages/idoso/?id=${encodeURIComponent(id)}`;
 
-          <div class="tags">
-            <span class="tag orange">!</span>
-            <span class="tag yellow">2</span>
-            <span class="tag blue">📅</span>
-          </div>
+      const card = document.createElement("div");
+      card.className =
+        "flex flex-col gap-4 rounded-xl bg-white dark:bg-background-dark/50 border border-gray-200 dark:border-gray-800 p-5 transition-all";
 
-          <div class="info">
-            <p class="label">PRÓXIMA AÇÃO</p>
-            <p class="value">${proximaAcao}</p>
-          </div>
+      card.innerHTML = `
+  <div class="flex items-center gap-3">
+    <div
+      class="w-12 h-12 bg-center bg-no-repeat bg-cover rounded-full"
+      style="background-image: url('${foto}');"
+    ></div>
+    <div class="flex flex-col flex-1">
+      <p class="text-gray-900 dark:text-white text-lg font-semibold leading-normal">
+        ${escapeHtml(i.nome || "Sem nome")}
+      </p>
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        ${escapeHtml(idade)}
+      </p>
+    </div>
+  </div>
 
-          <div class="info">
-            <p class="label">EVENTOS RECENTES</p>
-            <p class="value">${escapeHtml(eventos)}</p>
-          </div>
+  <div class="flex items-center justify-around gap-2 text-center">
+    <div class="flex flex-col items-center gap-1.5" title="Estoque Baixo">
+      <div class="relative rounded-full bg-orange-100 dark:bg-orange-500/20 p-2.5 text-orange-500 dark:text-orange-400">
+        <span class="material-symbols-outlined text-2xl">pill</span>
+        ${estoqueBadge}
+      </div>
+    </div>
+    <div class="flex flex-col items-center gap-1.5" title="Dose Atrasada">
+      <div class="relative rounded-full bg-red-100 dark:bg-red-500/20 p-2.5 text-red-500 dark:text-red-400">
+        <span class="material-symbols-outlined text-2xl">alarm</span>
+        ${doseBadge}
+      </div>
+    </div>
+    <div class="flex flex-col items-center gap-1.5" title="Consulta Próxima">
+      <div class="relative rounded-full bg-blue-100 dark:bg-blue-500/20 p-2.5 text-blue-500 dark:text-blue-400">
+        <span class="material-symbols-outlined text-2xl">calendar_month</span>
+      </div>
+    </div>
+  </div>
 
-          <button class="btn">
-            <a style="color:white;text-decoration:none;" href="/pages/idoso/idoso.html?id=${i._id}">
-              Ver Detalhes
-            </a>
-          </button>
-        `;
+  <div class="bg-gray-100 dark:bg-white/10 rounded-lg p-3">
+    <p class="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wider">
+      Próxima Ação
+    </p>
+    <p class="text-gray-800 dark:text-gray-200 text-base font-semibold">
+      ${escapeHtml(proximaAcaoNome)} ${escapeHtml(proximaAcaoDose)} às 
+      <span class="text-primary">${escapeHtml(proximaAcaoHorario)}</span>
+    </p>
+  </div>
 
-        cardsContainer.appendChild(card);
+  <div class="bg-gray-100 dark:bg-white/10 rounded-lg p-3">
+    <p class="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wider">
+      Eventos Recentes
+    </p>
+    <p class="text-gray-800 dark:text-gray-200 text-base font-semibold">
+      ${escapeHtml(eventosRecentesTexto)}
+    </p>
+  </div>
+
+  <button
+    class="w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-primary text-white text-sm font-bold tracking-wide hover:bg-primary/80 active:bg-primary/70 transition-colors"
+    data-idoso-id="${encodeURIComponent(id)}"
+  >
+    Ver Detalhes
+  </button>
+`;
+
+      const btn = card.querySelector("button");
+      btn.addEventListener("click", () => {
+        window.location.href = href;
       });
 
+      cardsContainer.appendChild(card);
+    });
+  }
+
+  async function loadIdosos() {
+    loadingEl.classList.remove("hidden");
+    emptyEl.classList.add("hidden");
+    cardsContainer.innerHTML = "";
+
+    try {
+      const data = await fetchJson("/api/idosos");
+      allIdosos = Array.isArray(data) ? data : [];
+      renderIdosos(allIdosos);
     } catch (err) {
-      console.error("Erro ao carregar idosos:", err);
+      console.error(err);
+      emptyEl.classList.remove("hidden");
+      emptyEl.textContent = err.message || "Erro ao carregar idosos.";
+    } finally {
+      loadingEl.classList.add("hidden");
     }
   }
 
-  loadLatestIdosos();
+  function applySearch(filterText) {
+    const text = filterText.trim().toLowerCase();
+    if (!text) {
+      renderIdosos(allIdosos);
+      return;
+    }
+
+    const filtered = allIdosos.filter((i) => {
+      const nome = (i.nome || "").toLowerCase();
+      const info =
+        (i.informacoes || "").toLowerCase() +
+        " " +
+        (i.doencas || [])
+          .map((d) => d.diagnostico || "")
+          .join(" ")
+          .toLowerCase();
+
+      return nome.includes(text) || info.includes(text);
+    });
+
+    renderIdosos(filtered);
+  }
+
+  function setupSearch() {
+    if (!searchInput) return;
+
+    let timeout = null;
+
+    searchInput.addEventListener("input", () => {
+      const value = searchInput.value;
+      if (timeout) clearTimeout(timeout);
+      timeout = setTimeout(() => applySearch(value), 200);
+    });
+  }
+
+  loadIdosos();
+  setupSearch();
 });

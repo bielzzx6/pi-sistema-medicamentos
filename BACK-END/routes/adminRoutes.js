@@ -2,43 +2,22 @@ const express = require("express");
 const router = express.Router();
 const adminController = require("../controllers/adminController");
 const auth = require("../middlewares/auth");
+const upload = require("../middlewares/upload");
 
 // Rotas públicas
 router.post("/register", adminController.register);
 router.post("/login", adminController.login);
 
-// Rotas protegidas
-router.get("/dashboard", auth, (req, res) => {
-  res.json({ message: "Bem-vindo à área protegida!" });
-});
+router.post(
+  "/update-photo",
+  auth,
+  upload.single("foto"), // multer
+  adminController.updatePhoto
+);
 
-// Rotas 
-router.get("/me", auth, async (req, res) => {
-  const admin = await Admin.findById(req.adminId).select("-senha");
-  res.json(admin);
-});
-router.put("/update", auth, async (req, res) => {
-  const { nome, email, cpf, telefone, senhaAtual, novaSenha } = req.body;
+// Rotas
+router.get("/me", auth, adminController.me);
 
-  const admin = await Admin.findById(req.adminId);
-
-  if (senhaAtual && !(await bcrypt.compare(senhaAtual, admin.senha))) {
-    return res.status(400).json({ error: "Senha atual incorreta" });
-  }
-
-  admin.nome = nome;
-  admin.email = email;
-  admin.cpf = cpf;
-  admin.telefone = telefone;
-
-  if (novaSenha) {
-    admin.senha = await bcrypt.hash(novaSenha, 10);
-  }
-
-  await admin.save();
-
-  res.json({ message: "Perfil atualizado!" });
-});
-  
+router.put("/update", auth, adminController.update);
 
 module.exports = router;

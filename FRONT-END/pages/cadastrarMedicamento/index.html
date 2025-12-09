@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Registrar Medicamento</title>
+    <link rel="icon" type="image/png" href="/public/logo.png" />
+    <!-- Tailwind + Fonts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      rel="stylesheet"
+    />
+
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#13b6ec",
+              "background-light": "#f6f8f8",
+              "background-dark": "#101d22",
+              "surface-light": "#ffffff",
+              "surface-dark": "#18282e",
+              "text-light": "#0d181b",
+              "text-dark": "#e7f0f3",
+              "text-muted-light": "#6b8592",
+              "text-muted-dark": "#a0b8c4",
+              "border-light": "#d5e3ea",
+              "border-dark": "#2d3f46",
+              "chip-bg": "#e7f5fb",
+            },
+            fontFamily: {
+              display: ["Manrope", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "0.75rem",
+              xl: "1rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+
+  <body
+    class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark"
+  >
+    <!-- Layout global (sidebar + topnav) -->
+    <div id="app"></div>
+
+    <!-- Conteúdo principal -->
+    <div class="py-32 pl-72 pr-8">
+      <main class="max-w-4xl mx-auto">
+        <!-- Breadcrumb + voltar -->
+        <div class="flex items-center justify-between gap-4 mb-6">
+          <nav class="flex flex-wrap items-center gap-2 text-sm">
+            <a
+              href="/pages/painel/painel.html"
+              class="text-text-muted-light dark:text-text-muted-dark hover:text-primary transition-colors"
+              >Início</a
+            >
+            <span class="text-text-muted-light dark:text-text-muted-dark"
+              >/</span
+            >
+            <a
+              href="/pages/medicamentos"
+              class="text-text-muted-light dark:text-text-muted-dark hover:text-primary transition-colors"
+              >Medicamentos</a
+            >
+            <span class="text-text-muted-light dark:text-text-muted-dark"
+              >/</span
+            >
+            <span
+              class="text-text-light dark:text-text-dark font-medium"
+              id="breadcrumb-title"
+              >Registrar Medicamento</span
+            >
+          </nav>
+
+          <a
+            href="/pages/medicamentos"
+            class="flex h-10 w-10 items-center justify-center rounded-full border border-border-light dark:border-border-dark text-text-muted-light dark:text-text-muted-dark hover:bg-primary/10 hover:text-primary transition-colors"
+          >
+            <span class="material-symbols-outlined">arrow_back</span>
+          </a>
+        </div>
+
+        <!-- Cabeçalho da página -->
+        <header
+          class="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-border-light dark:border-border-dark bg-gradient-to-r from-surface-light/90 via-surface-light/90 to-primary/5 dark:from-surface-dark dark:via-surface-dark dark:to-primary/10 px-6 py-5 shadow-sm"
+        >
+          <div class="flex items-center gap-4 min-w-0">
+            <div
+              class="h-12 w-12 rounded-2xl bg-primary/15 text-primary flex items-center justify-center"
+            >
+              <span class="material-symbols-outlined text-3xl">pill</span>
+            </div>
+            <div class="min-w-0">
+              <h1
+                id="title"
+                class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight truncate"
+              >
+                Registrar Medicamento
+              </h1>
+              <p
+                class="mt-1 text-sm text-text-muted-light dark:text-text-muted-dark"
+              >
+                Cadastre as informações de prescrição, estoque e horários de
+                administração.
+              </p>
+            </div>
+          </div>
+        </header>
+
+        <!-- Card do formulário -->
+        <form
+          id="form-med"
+          class="space-y-8 rounded-2xl border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-sm p-6 md:p-7"
+          enctype="multipart/form-data"
+        >
+          <!-- Seção: Identificação -->
+          <section class="space-y-4">
+            <div class="flex items-center justify-between gap-2">
+              <h2 class="text-lg font-bold">Identificação do medicamento</h2>
+              <span
+                class="inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+              >
+                <span class="material-symbols-outlined text-sm">badge</span>
+                Dados básicos
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 gap-5">
+              <!-- Nome -->
+              <label class="flex flex-col gap-1.5">
+                <span class="text-sm font-medium">Nome do medicamento</span>
+                <input
+                  id="nome"
+                  name="nome"
+                  class="h-11 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/60"
+                  placeholder="Ex: Paracetamol 750mg"
+                />
+              </label>
+
+              <!-- Classificação (chips) -->
+              <div class="flex flex-col gap-2">
+                <span class="text-sm font-medium">Classificação</span>
+
+                <div class="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    class="chip-classificacao inline-flex items-center gap-1 rounded-full border border-border-light dark:border-border-dark bg-chip-bg/70 text-primary px-3 py-1.5 text-xs font-semibold hover:bg-primary/15 transition-colors"
+                    data-value="Uso Contínuo"
+                  >
+                    <span class="material-symbols-outlined text-sm"
+                      >refresh</span
+                    >
+                    Uso Contínuo
+                  </button>
+
+                  <button
+                    type="button"
+                    class="chip-classificacao inline-flex items-center gap-1 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-3 py-1.5 text-xs font-semibold text-text-muted-light dark:text-text-muted-dark hover:bg-primary/10 hover:text-primary transition-colors"
+                    data-value="Antibiótico"
+                  >
+                    <span class="material-symbols-outlined text-sm"
+                      >science</span
+                    >
+                    Antibiótico
+                  </button>
+
+                  <button
+                    type="button"
+                    class="chip-classificacao inline-flex items-center gap-1 rounded-full border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-3 py-1.5 text-xs font-semibold text-text-muted-light dark:text-text-muted-dark hover:bg-primary/10 hover:text-primary transition-colors"
+                    data-value="Controle Especial"
+                  >
+                    <span class="material-symbols-outlined text-sm">lock</span>
+                    Controle Especial
+                  </button>
+                </div>
+
+                <input type="hidden" id="classificacao" name="classificacao" />
+              </div>
+
+              <!-- Foto -->
+              <div class="flex flex-col gap-2">
+                <span class="text-sm font-medium">Foto do medicamento</span>
+                <div class="flex items-center gap-4">
+                  <div
+                    id="foto-preview"
+                    class="h-16 w-16 rounded-xl bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark overflow-hidden flex items-center justify-center text-text-muted-light dark:text-text-muted-dark"
+                  >
+                    <span class="material-symbols-outlined text-3xl">
+                      medication
+                    </span>
+                  </div>
+
+                  <label class="flex flex-col gap-1 text-xs">
+                    <span
+                      class="text-text-muted-light dark:text-text-muted-dark"
+                    >
+                      Imagem em formato JPG ou PNG
+                    </span>
+                    <input
+                      type="file"
+                      id="foto"
+                      name="foto"
+                      accept="image/*"
+                      class="text-xs text-text-muted-light dark:text-text-muted-dark"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <hr class="border-border-light/80 dark:border-border-dark/60" />
+
+          <!-- Seção: Prescrição -->
+          <section class="space-y-4">
+            <div class="flex items-center justify-between gap-2">
+              <h2 class="text-lg font-bold">Prescrição médica</h2>
+              <span
+                class="inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+              >
+                <span class="material-symbols-outlined text-sm"
+                  >stethoscope</span
+                >
+                Profissional
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <!-- Médico -->
+              <label class="flex flex-col gap-1.5">
+                <span class="text-sm font-medium">Médico prescritor</span>
+                <input
+                  id="medico"
+                  name="medico"
+                  class="h-11 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/60"
+                  placeholder="Ex: Dr. João da Silva"
+                />
+              </label>
+
+              <!-- Especialidade -->
+              <label class="flex flex-col gap-1.5">
+                <span class="text-sm font-medium">Especialidade médica</span>
+                <select
+                  id="especialidade"
+                  name="especialidade"
+                  class="h-11 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/60"
+                >
+                  <option value="">Selecione</option>
+                  <option>Clínico Geral</option>
+                  <option>Geriatra</option>
+                  <option>Cardiologista</option>
+                  <option>Endocrinologista</option>
+                  <option>Pneumologista</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <hr class="border-border-light/80 dark:border-border-dark/60" />
+
+          <!-- Seção: Idosos vinculados (OPCIONAL) -->
+          <section class="space-y-4">
+            <div class="flex items-center justify-between gap-2">
+              <h2 class="text-lg font-bold">Idosos vinculados (opcional)</h2>
+              <span
+                class="inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+              >
+                <span class="material-symbols-outlined text-sm">groups</span>
+                Associação
+              </span>
+            </div>
+
+            <p class="text-xs text-text-muted-light dark:text-text-muted-dark">
+              Você pode vincular este medicamento a um ou mais idosos. Caso não
+              selecione ninguém, o medicamento ficará disponível sem vínculo
+              específico.
+            </p>
+
+            <div class="space-y-3">
+              <!-- Campo de busca (opcional, JS pode usar) -->
+              <div class="relative">
+                <span
+                  class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-xs text-text-muted-light dark:text-text-muted-dark"
+                >
+                  search
+                </span>
+                <input
+                  id="buscar-idoso"
+                  type="text"
+                  class="h-9 w-full rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark pl-8 pr-3 text-xs text-text-light dark:text-text-dark placeholder:text-text-muted-light dark:placeholder:text-text-muted-dark focus:outline-none focus:ring-2 focus:ring-primary/60"
+                  placeholder="Buscar idoso pelo nome..."
+                />
+              </div>
+
+              <!-- Lista de idosos (checkboxes via JS) -->
+              <div
+                id="idosos-list"
+                class="space-y-2 rounded-lg border border-dashed border-border-light dark:border-border-dark bg-background-light/60 dark:bg-background-dark/60 p-3 max-h-60 overflow-y-auto text-sm"
+              >
+                <!-- Exemplo de item (será substituído via JS):
+                <label class="flex items-center justify-between gap-3 rounded-lg px-3 py-2 hover:bg-primary/5 dark:hover:bg-primary/10 cursor-pointer">
+                  <div class="flex items-center gap-2">
+                    <input type="checkbox" class="checkbox-idoso" value="ID" />
+                    <span class="font-medium">Maria Silva</span>
+                  </div>
+                  <span class="text-xs text-text-muted-light dark:text-text-muted-dark">
+                    82 anos
+                  </span>
+                </label>
+                -->
+                <p
+                  id="idosos-empty"
+                  class="text-xs text-text-muted-light dark:text-text-muted-dark"
+                >
+                  Carregando lista de idosos...
+                </p>
+              </div>
+            </div>
+
+            <!-- hidden para backend (JS preenche com JSON de IDs) -->
+            <input
+              type="hidden"
+              id="idososVinculados"
+              name="idososVinculados"
+              value=""
+            />
+          </section>
+
+          <hr class="border-border-light/80 dark:border-border-dark/60" />
+
+          <!-- Seção: Administração -->
+          <section class="space-y-4">
+            <div class="flex items-center justify-between gap-2">
+              <h2 class="text-lg font-bold">Detalhes de administração</h2>
+              <span
+                class="inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+              >
+                <span class="material-symbols-outlined text-sm">schedule</span>
+                Rotina
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <!-- Estoque inicial -->
+              <label class="flex flex-col gap-1.5">
+                <span class="text-sm font-medium"
+                  >Quantidade inicial em estoque</span
+                >
+                <input
+                  id="estoque_inicial"
+                  name="estoque_inicial"
+                  type="number"
+                  min="0"
+                  class="h-11 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/60"
+                  placeholder="Ex: 30"
+                />
+              </label>
+
+              <!-- Estoque atual -->
+              <label class="flex flex-col gap-1.5">
+                <span class="text-sm font-medium">Estoque atual</span>
+                <input
+                  id="estoque"
+                  name="estoque"
+                  type="number"
+                  min="0"
+                  class="h-11 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark px-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/60"
+                  placeholder="Ex: 18"
+                />
+              </label>
+            </div>
+
+            <!-- Horários -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-sm font-medium"
+                  >Horários de administração</span
+                >
+                <button
+                  type="button"
+                  id="add-horario"
+                  class="inline-flex items-center gap-1 rounded-lg bg-primary/10 text-primary px-3 py-1.5 text-xs font-semibold hover:bg-primary/20 transition-colors"
+                >
+                  <span class="material-symbols-outlined text-sm">add</span>
+                  Adicionar horário
+                </button>
+              </div>
+
+              <div
+                id="horarios-list"
+                class="space-y-2 rounded-lg border border-dashed border-border-light dark:border-border-dark p-3"
+              >
+                <!-- inputs de horário criados via JS -->
+              </div>
+            </div>
+
+            <!-- Instruções -->
+            <label class="flex flex-col gap-1.5">
+              <span class="text-sm font-medium">Instruções especiais</span>
+              <textarea
+                id="instrucoes"
+                name="instrucoes"
+                rows="3"
+                class="rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark p-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/60"
+                placeholder="Ex: Tomar 30 minutos antes das refeições, não ingerir com álcool..."
+              ></textarea>
+            </label>
+          </section>
+
+          <!-- Ações -->
+          <div class="flex flex-col sm:flex-row justify-end gap-3 pt-2">
+            <button
+              type="button"
+              onclick="history.back()"
+              class="inline-flex items-center justify-center rounded-lg border border-border-light dark:border-border-dark px-5 h-11 text-sm font-semibold text-text-muted-light dark:text-text-muted-dark hover:bg-background-light hover:dark:bg-background-dark/60 transition-colors"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="submit"
+              class="inline-flex items-center justify-center rounded-lg bg-primary px-6 h-11 text-sm font-bold text-white shadow-sm hover:opacity-90 transition-opacity"
+            >
+              <span class="material-symbols-outlined text-base mr-1">
+                done
+              </span>
+              Salvar medicamento
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/public/js/api.js"></script>
+    <script src="/public/js/auth.js"></script>
+    <script src="/public/js/cadastrarMedicamento.js"></script>
+    <script src="/public/js/layout.js"></script>
+  </body>
+</html>

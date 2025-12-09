@@ -1,157 +1,250 @@
-// idoso.js
+// FRONT-END/public/js/idoso.js
 document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
+
   if (!id) {
     alert("Idoso não especificado.");
-    window.location.href = "/pages/pacientes/pacientes.html";
+    window.location.href = "/pages/pacientes";
     return;
   }
 
-  const photoEl = document.getElementById("idoso-photo");
-  const nomeEl = document.getElementById("idoso-nome");
-  const ageEl = document.getElementById("idoso-age");
-  const infoEl = document.getElementById("idoso-info");
-  const contatosEl = document.getElementById("idoso-contatos");
+  // Elementos básicos do cabeçalho / dados gerais
+  const pageTitleEl = document.getElementById("idoso-page-title");
+  const idosoAvatarEl = document.getElementById("idoso-avatar");
+  const idosoNomeEl = document.getElementById("idoso-nome");
+  const idosoNascimentoEl = document.getElementById("idoso-nascimento");
+  const dadosNomeEl = document.getElementById("dados-nome");
+  const dadosNascimentoEl = document.getElementById("dados-nascimento");
+  const dadosContatoEl = document.getElementById("dados-contato");
   const doencasEl = document.getElementById("idoso-doencas");
-  const medsEl = document.getElementById("idoso-medicamentos");
-  const sinaisEl = document.getElementById("idoso-sinais");
-  const editarLink = document.getElementById("editar-link");
-  const excluirBtn = document.getElementById("excluir-btn");
-  const formSinal = document.getElementById("sinal-form");
+  const editarLinkEl = document.getElementById("editar-link");
+
+  /* -------------------------------
+   * Tabs (Informações / Vitais / Meds)
+   * ----------------------------- */
+
+  // Botões de aba devem ter data-tab="gerais" | "sinais" | "medicamentos"
+  // Containers de conteúdo devem ter data-tab-panel="gerais" | ...
+  const tabButtons = document.querySelectorAll("[data-tab]");
+  const tabPanels = document.querySelectorAll("[data-tab-panel]");
+
+  function activateTab(tabKey) {
+    if (!tabKey) return;
+
+    tabButtons.forEach((btn) => {
+      const isActive = btn.dataset.tab === tabKey;
+
+      // classes base do HTML original
+      if (isActive) {
+        btn.classList.add(
+          "border-b-[3px]",
+          "border-b-primary",
+          "text-[#0d181b]",
+          "dark:text-white"
+        );
+        btn.classList.remove(
+          "border-b-transparent",
+          "text-gray-500",
+          "dark:text-gray-400"
+        );
+      } else {
+        btn.classList.remove(
+          "border-b-[3px]",
+          "border-b-primary",
+          "text-[#0d181b]",
+          "dark:text-white"
+        );
+        btn.classList.add(
+          "border-b-transparent",
+          "text-gray-500",
+          "dark:text-gray-400"
+        );
+      }
+
+      // Ícone com/sem fill
+      const icon = btn.querySelector(".material-symbols-outlined");
+      if (icon) {
+        if (isActive) {
+          icon.classList.add("fill");
+        } else {
+          icon.classList.remove("fill");
+        }
+      }
+    });
+
+    tabPanels.forEach((panel) => {
+      const isCurrent = panel.dataset.tabPanel === tabKey;
+      panel.classList.toggle("hidden", !isCurrent);
+    });
+  }
+
+  function setupTabs() {
+    if (!tabButtons.length || !tabPanels.length) return;
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const tabKey = btn.dataset.tab;
+        activateTab(tabKey);
+      });
+    });
+
+    // Ativa aba padrão (gerais) ou a primeira
+    const defaultTab =
+      document.querySelector("[data-tab='gerais']") || tabButtons[0];
+    if (defaultTab) {
+      activateTab(defaultTab.dataset.tab);
+    }
+  }
+
+  /* -------------------------------
+   * Helpers
+   * ----------------------------- */
 
   function getPhotoUrl(path) {
-    return path ? window.location.origin + path : "https://i.pravatar.cc/120";
+    if (!path) return "https://i.pravatar.cc/160";
+    if (/^https?:\/\//i.test(path)) return path;
+    return window.location.origin + (path.startsWith("/") ? path : "/" + path);
   }
-
-  function calcAge(dob) {
-    if (!dob) return "";
-    const diff = Date.now() - new Date(dob).getTime();
-    const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
-    return `${age} anos`;
-  }
-
-  async function load() {
-    try {
-      const res = await axios.get(`/api/idosos/${id}`);
-      const i = res.data;
-      if (!i) throw new Error("Não encontrado");
-
-      document.getElementById("idoso-title").textContent = i.nome || "Perfil";
-      nomeEl.textContent = i.nome || "";
-      ageEl.textContent = calcAge(i.data_nasc);
-      infoEl.textContent = i.informacoes || "";
-
-      photoEl.src = getPhotoUrl(i.foto);
-
-      // contatos
-      contatosEl.innerHTML = "";
-      (i.contatos || []).forEach(c => {
-        const li = document.createElement("li");
-        li.innerHTML = `<strong>${escapeHtml(c.nome)}</strong> — ${escapeHtml(c.telefone || "")}`;
-        contatosEl.appendChild(li);
-      });
-
-      // doenças
-      doencasEl.innerHTML = "";
-      (i.doencas || []).forEach(d => {
-        const div = document.createElement("div");
-        div.className = "condition-card";
-        div.innerHTML = `<h4>${escapeHtml(d.diagnostico)}</h4><p>${formatDate(d.data)} • ${escapeHtml(d.medico || "")}</p><p>${escapeHtml(d.observacoes || "")}</p>`;
-        doencasEl.appendChild(div);
-      });
-
-      // medicamentos
-      medsEl.innerHTML = "";
-      (i.medicamentos || []).forEach(m => {
-        const div = document.createElement("div");
-        div.className = "med-item";
-        div.innerHTML = `<strong>${escapeHtml(m.nome)}</strong> • ${escapeHtml(m.dose || "")} • ${escapeHtml(m.horario || "")} ${m.ativo ? "" : "(inativo)"}`;
-        medsEl.appendChild(div);
-      });
-
-      // sinais
-      sinaisEl.innerHTML = "";
-      (i.sinais_vitais || []).slice().reverse().forEach(s => {
-        const d = document.createElement("div");
-        d.className = "sinal-item";
-        d.innerHTML = `<small>${formatDateTime(s.data, s.hora)}</small>
-          <p>PA: ${s.pressao_sistolica}/${s.pressao_diastolica} — BPM: ${s.batimentos} — T: ${s.temperatura}°C</p>
-          <p>${escapeHtml(s.observacoes || "")}</p>`;
-        sinaisEl.appendChild(d);
-      });
-
-      // edit link
-      editarLink.href = `/pages/cadastroIdoso/cadastroIdoso.html?id=${id}`;
-
-    } catch (err) {
-      console.error(err);
-      alert("Erro ao carregar idoso.");
-      window.location.href = "/pages/pacientes/pacientes.html";
-    }
-  }
-
-  excluirBtn.addEventListener("click", async () => {
-    if (!confirm("Remover este idoso?")) return;
-    try {
-      await axios.delete(`/api/idosos/${id}`);
-      alert("Idoso removido.");
-      window.location.href = "/pages/pacientes/pacientes.html";
-    } catch (err) {
-      console.error(err);
-      alert(err.response?.data?.error || "Erro ao remover.");
-    }
-  });
-
-  formSinal?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    // gather
-    const fd = new FormData(formSinal);
-    const novo = {
-      data: new Date().toISOString(),
-      hora: new Date().toTimeString().split(" ")[0].slice(0,5),
-      pressao_sistolica: Number(fd.get("pressao_sistolica") || 0),
-      pressao_diastolica: Number(fd.get("pressao_diastolica") || 0),
-      batimentos: Number(fd.get("batimentos") || 0),
-      temperatura: Number(fd.get("temperatura") || 0),
-      observacoes: fd.get("observacoes") || ""
-    };
-
-    try {
-      // fetch original, append, PUT back
-      const res = await axios.get(`/api/idosos/${id}`);
-      const i = res.data;
-      const sinais = i.sinais_vitais || [];
-      sinais.push(novo);
-
-      await axios.put(`/api/idosos/${id}`, { sinais_vitais: sinais });
-      alert("Registro salvo.");
-      formSinal.reset();
-      load(); // recarrega lista
-    } catch (err) {
-      console.error(err);
-      alert("Erro ao salvar sinal.");
-    }
-  });
 
   function escapeHtml(str) {
-    return String(str || "").replace(/[&<>"']/g, (m) => ({
-      "&": "&amp;","<": "&lt;",">": "&gt;",'"': "&quot;","'": "&#39;"
-    }[m]));
+    return String(str || "").replace(/[&<>"']/g, (m) => {
+      return {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      }[m];
+    });
   }
 
-  function formatDate(d) {
-    if (!d) return "";
-    const dt = new Date(d);
-    return dt.toLocaleDateString();
+  function formatDate(value) {
+    if (!value) return "";
+    const d = new Date(value);
+    if (Number.isNaN(d.getTime())) return "";
+    return d.toLocaleDateString("pt-BR", { timeZone: "America/Fortaleza" });
   }
 
-  function formatDateTime(d, h) {
-    if (!d) return h || "";
-    const dt = new Date(d);
-    return dt.toLocaleString() + (h ? " " + h : "");
+  function renderDoencas(lista) {
+    if (!doencasEl) return;
+    doencasEl.innerHTML = "";
+
+    (lista || []).forEach((d) => {
+      const details = document.createElement("details");
+      details.className =
+        "group bg-background-light dark:bg-background-dark p-4 rounded-lg";
+      details.open = true;
+
+      const diagnostico = escapeHtml(d.diagnostico || "Condição clínica");
+      const medico = escapeHtml(d.medico || "");
+      const dt = formatDate(d.data);
+      const obs = escapeHtml(d.observacoes || "");
+
+      details.innerHTML = `
+        <summary
+          class="flex justify-between items-center cursor-pointer list-none"
+        >
+          <div>
+            <p class="font-bold text-[#0d181b] dark:text-white">
+              ${diagnostico}
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+              ${medico ? medico + (dt ? " • " + dt : "") : dt ? dt : ""}
+            </p>
+          </div>
+          <span
+            class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180"
+          >
+            expand_more
+          </span>
+        </summary>
+        <div
+          class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700 space-y-3 text-sm"
+        >
+          ${
+            dt
+              ? `<p>
+                  <strong class="text-gray-600 dark:text-gray-300">
+                    Diagnóstico:
+                  </strong> ${dt}
+                </p>`
+              : ""
+          }
+          ${
+            obs
+              ? `<p>
+                  <strong class="text-gray-600 dark:text-gray-300">
+                    Observações:
+                  </strong> ${obs}
+                </p>`
+              : ""
+          }
+        </div>
+      `;
+
+      doencasEl.appendChild(details);
+    });
   }
 
-  load();
+  /* -------------------------------
+   * Carregar dados do idoso
+   * ----------------------------- */
+
+  async function loadIdoso() {
+    try {
+      const res = await fetch(`/api/idosos/${encodeURIComponent(id)}`, {
+        credentials: "include",
+      });
+      if (!res.ok) throw new Error("Erro ao buscar idoso");
+      const i = await res.json();
+
+      const nome = i.nome || "Paciente";
+
+      if (pageTitleEl) pageTitleEl.textContent = "Perfil de " + nome;
+      if (idosoNomeEl) idosoNomeEl.textContent = nome;
+      if (dadosNomeEl) dadosNomeEl.textContent = nome;
+
+      const nascFmt = formatDate(i.data_nasc);
+      if (idosoNascimentoEl) {
+        idosoNascimentoEl.textContent = nascFmt
+          ? "Nascimento: " + nascFmt
+          : "Nascimento: -";
+      }
+      if (dadosNascimentoEl) dadosNascimentoEl.textContent = nascFmt || "-";
+
+      if (idosoAvatarEl) {
+        const url = getPhotoUrl(i.foto);
+        idosoAvatarEl.style.backgroundImage = `url('${url}')`;
+      }
+
+      if (dadosContatoEl) {
+        const c = (i.contatos || [])[0];
+        if (c) {
+          const n = c.nome ? String(c.nome) : "";
+          const t = c.telefone ? String(c.telefone) : "";
+          dadosContatoEl.textContent = n || t ? n + (t ? ` (${t})` : "") : "-";
+        } else {
+          dadosContatoEl.textContent = "-";
+        }
+      }
+
+      if (editarLinkEl) {
+        editarLinkEl.href = `/pages/cadastroIdoso/?id=${encodeURIComponent(
+          id
+        )}`;
+      }
+
+      renderDoencas(i.doencas || []);
+    } catch (e) {
+      console.error(e);
+      alert("Erro ao carregar dados do paciente.");
+      window.location.href = "/pages/pacientes";
+    }
+  }
+
+  // Inicialização
+  setupTabs();
+  loadIdoso();
 });

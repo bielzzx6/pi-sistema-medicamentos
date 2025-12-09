@@ -1,9 +1,16 @@
 // Protege as páginas que precisam de autenticação
-(function () {
-  const token = localStorage.getItem("token");
 
-  if (!token) {
-    // Usuário não está logado -> manda para o login
-    window.location.href = "/pages/login/login.html";
-  }
+(async function () {
+  await fetch("/api/system/verify-auth", {
+    method: "GET",
+    credentials: "include",
+  }).then(async (response) => {
+    const data = await response.json();
+    if (!data.success) {
+      return (window.location.href = "/pages/login");
+    }
+    if (window.location.pathname == "/") {
+      window.location.href = "/pages/painel";
+    }
+  });
 })();

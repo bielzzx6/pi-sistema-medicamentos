@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Gerenciamento de Cuidadores</title>
+    <link rel="icon" type="image/png" href="/public/logo.png" />
+    <!-- Tailwind + Fonts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+    </style>
+
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#13b6ec",
+              "background-light": "#f6f8f8",
+              "background-dark": "#101d22",
+              "card-light": "#ffffff",
+              "card-dark": "#1a2a32",
+              "text-light": "#0d181b",
+              "text-dark": "#e0e0e0",
+              "text-muted-light": "#4c869a",
+              "text-muted-dark": "#a0b0b6",
+              "border-light": "#cfe1e7",
+              "border-dark": "#34454c",
+            },
+            fontFamily: {
+              display: ["Manrope", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body
+    class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark"
+  >
+    <div class="flex min-h-screen">
+      <div id="app"></div>
+
+      <div class="py-32 pl-72 pr-8 w-full">
+        <main class="w-full flex-1 p-8">
+          <div class="w-full">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div class="flex flex-col gap-2">
+                <h1
+                  class="text-3xl font-bold text-text-light dark:text-text-dark tracking-tight"
+                >
+                  Gerenciamento de Cuidadores
+                </h1>
+                <p
+                  class="text-text-muted-light dark:text-text-muted-dark text-sm"
+                >
+                  Adicione, visualize e gerencie os cuidadores.
+                </p>
+              </div>
+
+              <button
+                id="btn-add-cuidador"
+                type="button"
+                class="flex min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-11 px-6 bg-primary text-white text-sm font-bold shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark"
+              >
+                <span class="material-symbols-outlined text-base">add</span>
+                <span class="truncate">Adicionar Novo Cuidador</span>
+              </button>
+            </div>
+
+            <div class="mt-6">
+              <div
+                class="overflow-hidden rounded-lg border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark"
+              >
+                <table class="w-full">
+                  <thead>
+                    <tr
+                      class="border-b border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark"
+                    >
+                      <th
+                        class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-text-muted-light dark:text-text-muted-dark"
+                      >
+                        Nome Completo
+                      </th>
+                      <th
+                        class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-text-muted-light dark:text-text-muted-dark"
+                      >
+                        CPF
+                      </th>
+                      <th
+                        class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-text-muted-light dark:text-text-muted-dark"
+                      >
+                        Telefone/WhatsApp
+                      </th>
+                      <th
+                        class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-text-muted-light dark:text-text-muted-dark"
+                      >
+                        Idosos Vinculados
+                      </th>
+                      <th
+                        class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-text-muted-light dark:text-text-muted-dark"
+                      >
+                        Ações
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody
+                    id="cuidadores-tbody"
+                    class="divide-y divide-border-light dark:divide-border-dark"
+                  ></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/public/js/api.js"></script>
+    <script src="/public/js/cuidadores.js"></script>
+    <script src="/public/js/layout.js"></script>
+  </body>
+</html>

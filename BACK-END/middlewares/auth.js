@@ -1,17 +1,17 @@
 const jwt = require("jsonwebtoken");
 
 module.exports = function (req, res, next) {
-  const token = req.headers["authorization"];
+  const cookies = req.cookies;
 
-  if (!token) {
-    return res.status(401).json({ error: "Acesso negado. Token não fornecido." });
+  if (!cookies.token) {
+    return res.send(401).json({ error: "Acesso negado. Token não fornecido." });
   }
 
   try {
-    const decoded = jwt.verify(token.replace("Bearer ", ""), process.env.JWT_SECRET);
+    const decoded = jwt.verify(cookies.token, process.env.JWT_SECRET);
     req.adminId = decoded.id;
     next();
   } catch (error) {
-    return res.status(401).json({ error: "Token inválido." });
+    return res.send(401).json({ error: "Token invalido." });
   }
 };

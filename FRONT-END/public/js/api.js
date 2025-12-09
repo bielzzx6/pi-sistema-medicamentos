@@ -1,4 +1,3 @@
-
 // Configuração global do Axios para incluir o token em todas as requisições
 axios.interceptors.request.use(
   async function (config) {
@@ -26,7 +25,7 @@ axios.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       localStorage.removeItem("token");
       localStorage.removeItem("admin");
-      window.location.href = "/pages/login/login.html";
+      window.location.href = "/pages/login";
     }
 
     return Promise.reject(error);
