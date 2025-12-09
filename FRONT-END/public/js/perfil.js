@@ -147,6 +147,7 @@ async function uploadPhoto(file) {
     const response = await fetch(`${API_BASE_URL}/update-photo`, {
       method: "POST",
       credentials: "include",
+      headers: { "Content-Type": "application/json" },
       body: formData,
     });
     const data = await response.json().catch(() => ({}));
@@ -271,6 +272,7 @@ async function handleProfileSubmit(event) {
     const response = await fetch(`${API_BASE_URL}/update`, {
       method: "PUT",
       credentials: "include",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
     const data = await response.json().catch(() => ({}));
